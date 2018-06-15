@@ -1,5 +1,7 @@
 class Volunteer < ApplicationRecord
     before_validation :sanitize_phone_number
+
+    belongs_to :contact
   
     validates :email, presence: true, email: true
     validates :first_name, presence: true
@@ -8,6 +10,18 @@ class Volunteer < ApplicationRecord
   
     validates :phone_number, number: true
   
+    def save
+      self.contact = Contact.new( email: self.email, first_name: self.first_name, last_name: self.last_name, zipcode: self.zipcode, phone_number: self.phone_number )
+      
+      super
+    end
+
+    def update(params)
+      self.contact.update( email: params[:email], first_name: params[:first_name], last_name: params[:last_name], zipcode: params[:zipcode], phone_number: params[:phone_number] )
+
+      super(params)
+    end
+
     private
     def sanitize_phone_number
       unless self.phone_number.nil?

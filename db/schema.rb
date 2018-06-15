@@ -10,24 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180615151841) do
+ActiveRecord::Schema.define(version: 20180615155807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
-  create_table "volunteers", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string "email"
-    t.string "phone_number"
+  create_table "contacts", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.string "email", null: false
     t.string "first_name"
     t.string "last_name"
-    t.string "address"
     t.string "zipcode"
-    t.string "city"
-    t.string "state"
-    t.text "help_blurb"
+    t.string "phone_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "volunteers", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.string "email", null: false
+    t.string "phone_number"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "address"
+    t.string "zipcode", null: false
+    t.string "city"
+    t.string "state"
+    t.text "help_blurb"
+    t.uuid "contact_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_id"], name: "index_volunteers_on_contact_id"
+  end
+
+  add_foreign_key "volunteers", "contacts"
 end

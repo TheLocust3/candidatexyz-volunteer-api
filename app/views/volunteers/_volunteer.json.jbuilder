@@ -10,3 +10,7 @@ json.zipcode volunteer.zipcode
 json.city volunteer.city
 json.state volunteer.state
 json.helpBlurb volunteer.help_blurb
+
+json.contact do
+    json.partial! 'contacts/contact', contact: volunteer.contact 
+end
