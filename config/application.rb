@@ -25,6 +25,8 @@ module VolunteerApi
       end
     end
 
+    Jbuilder.key_format camelize: :lower
+
     config.api_only = true
   end
 end
