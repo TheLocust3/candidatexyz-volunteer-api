@@ -1,8 +1,6 @@
 class Volunteer < ApplicationRecord
     before_validation :sanitize_phone_number
   
-    belongs_to :contact
-  
     validates :email, presence: true, email: true
     validates :first_name, presence: true
     validates :last_name, presence: true
