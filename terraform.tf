@@ -15,12 +15,9 @@ variable "key" {
 }
 
 data "aws_ami" "image" {
-  filter {
-    name   = "image-id"       // default Ubuntu image
-    values = ["ami-a4dc46db"]
-  }
+  # name_regex = "candidatexyz-barebones"
 
-  # name_regex  = "volunteer-api"
+  name_regex  = "volunteer-api"
   most_recent = true
 }
 
@@ -188,7 +185,7 @@ resource "aws_lb_target_group" "target" {
   vpc_id   = "${data.aws_vpc.default.id}"
 }
 
-resource "aws_lb_listener" "lb_listener" {
+resource "aws_lb_listener" "lb_listener1" {
   load_balancer_arn = "${aws_lb.load_balancer.arn}"
   port              = "443"
   protocol          = "HTTPS"
@@ -201,7 +198,7 @@ resource "aws_lb_listener" "lb_listener" {
   }
 }
 
-resource "aws_lb_listener" "lb_listener" {
+resource "aws_lb_listener" "lb_listener2" {
   load_balancer_arn = "${aws_lb.load_balancer.arn}"
   port              = "80"
   protocol          = "HTTP"
@@ -222,6 +219,12 @@ resource "aws_autoscaling_group" "autoscaling" {
 
   lifecycle {
     create_before_destroy = true
+  }
+
+  tag {
+    key                 = "Name"
+    value               = "${var.name}"
+    propagate_at_launch = true
   }
 }
 
@@ -267,4 +270,8 @@ output "database_address" {
 
 output "database_password" {
   value = "${aws_db_instance.db_instance.password}"
+}
+
+output "dns_name" {
+  value = "${aws_lb.load_balancer.dns_name}"
 }
