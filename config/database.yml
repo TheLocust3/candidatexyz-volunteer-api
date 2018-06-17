@@ -13,6 +13,4 @@ test:
   
 production:
   <<: *default
-  database: volunteer-api_production
-  username: volunteer-api
-  password: <%= ENV['VOLUNTEER-API_DATABASE_PASSWORD'] %>
+  database: volunteerapi
