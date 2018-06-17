@@ -19,7 +19,6 @@ sudo rbenv install -s $RUBY_VERSION
 sudo chmod 777 -R /home/ubuntu/.rbenv/versions/$RUBY_VERSION
 export PATH=/home/ubuntu/.rbenv/versions/$RUBY_VERSION/bin:$PATH
 
-sudo npm install --global yarn
 gem install bundler
 
 sudo rm /etc/nginx/sites-available/default
@@ -33,6 +32,3 @@ cd /home/ubuntu/rails
 export $(cat /home/ubuntu/secrets.env | xargs)
 
 bundle install
-
-./bin/rake assets:clobber RAILS_ENV=production
-./bin/rake assets:precompile RAILS_ENV=production

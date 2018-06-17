@@ -13,12 +13,5 @@ cd ~/.rbenv/plugins
 rm -rf ruby-build/
 git clone https://github.com/sstephenson/ruby-build.git # update ruby-build definitions
 
-# install npm and updated version of nodejs
-sudo apt-get install -y npm libpq-dev
-
-sudo npm install --global n
-sudo n 8.6.0
-sudo ln -sf /usr/local/n/versions/node/8.6.0/bin/node /usr/bin/nodejs
-
 # setup nginx + passenger
 sudo apt-get install -y nginx
