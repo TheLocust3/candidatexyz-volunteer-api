@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  get 'volunteers/number_of_pages' => 'volunteers#get_number_of_pages'
+  root to: 'root#index'
+
+  get 'volunteers/number-of-pages' => 'volunteers#get_number_of_pages'
   resources :volunteers, defaults: { format: :json }
 
   delete 'contacts/unsubscribe' => 'contacts#unsubscribe'
