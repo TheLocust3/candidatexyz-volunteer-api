@@ -1,4 +1,6 @@
 class MessagesController < ApplicationController
+    include Authenticatable
+    before_action :authenticate
 
     def index
         @messages = Message.all

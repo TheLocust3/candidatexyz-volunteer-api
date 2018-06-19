@@ -1,4 +1,6 @@
 class VolunteersController < ApplicationController
+    include Authenticatable
+    before_action :authenticate
     
     def index
         if (params[:page_number].nil?)

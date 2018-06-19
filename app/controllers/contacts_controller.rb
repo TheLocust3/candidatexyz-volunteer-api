@@ -1,5 +1,7 @@
 class ContactsController < ApplicationController
-    
+    include Authenticatable
+    before_action :authenticate
+
     def index
         @contacts = Contact.all
 
