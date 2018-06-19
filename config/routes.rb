@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :volunteers, defaults: { format: :json }
 
   delete 'contacts/unsubscribe' => 'contacts#unsubscribe'
+  post 'contacts/send_email' => 'mail#send_to_contacts'
   resources :contacts, defaults: { format: :json }
   
   resources :messages, defaults: { format: :json }

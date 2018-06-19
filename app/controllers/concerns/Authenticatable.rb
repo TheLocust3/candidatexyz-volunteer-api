@@ -1,13 +1,12 @@
-require 'open-uri'
-require 'json'
+require 'httparty'
 
 module Authenticatable
     extend ActiveSupport::Concern
   
     def authenticate
         begin
-            response = URI.parse("#{Rails.application.secrets.auth_api}/auth/validate_token?uid=#{request.headers['uid']}&client=#{request.headers['client']}&access-token=#{request.headers['access-token']}").read
-            data = JSON.parse(response)
+            response = HTTParty.get("#{Rails.application.secrets.auth_api}/auth/validate_token?uid=#{request.headers['uid']}&client=#{request.headers['client']}&access-token=#{request.headers['access-token']}")
+            data = response.parsed_response
 
             current_user = data['data']
         rescue
