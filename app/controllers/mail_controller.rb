@@ -1,6 +1,6 @@
 class MailController < ApplicationController
-    include Request
-    include Authenticatable
+    include CandidateXYZ::Concerns::Request
+    include CandidateXYZ::Concerns::Authenticatable
     before_action :authenticate
 
     def send_to_contacts

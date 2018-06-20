@@ -1,5 +1,5 @@
 class VolunteersController < ApplicationController
-    include Authenticatable
+    include CandidateXYZ::Concerns::Authenticatable
     before_action :authenticate
     
     def index

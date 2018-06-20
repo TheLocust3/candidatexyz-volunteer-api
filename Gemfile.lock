@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/TheLocust3/candidatexyz-common.git
+  revision: 4faf9a3c665ec6bcc6e137751b50716585a8851c
+  specs:
+    candidatexyz-common (0.1.0)
+      httparty
+      rails (~> 5.1.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -131,6 +139,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  candidatexyz-common!
   httparty
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
