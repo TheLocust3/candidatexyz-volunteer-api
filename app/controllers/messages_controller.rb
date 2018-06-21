@@ -1,15 +1,16 @@
 class MessagesController < ApplicationController
     include CandidateXYZ::Concerns::Authenticatable
-    before_action :authenticate
+    before_action :authenticate, except: [ :create ]
+    before_action :authenticate_campaign_id, except: [ :create ]
 
     def index
-        @messages = Message.all
+        @messages = Message.where( :campaign_id => @campaign_id )
 
         render
     end
 
     def show
-        @message = Message.find(params[:id])
+        @message = Message.where( :id => params[:id], :campaign_id => @campaign_id ).first
 
         render
     end
@@ -25,7 +26,7 @@ class MessagesController < ApplicationController
     end
 
     def destroy
-        @message = Message.find(params[:id])
+        @message = Message.where( :id => params[:id], :campaign_id => @campaign_id ).first
         @message.destroy
 
         render_success
@@ -33,7 +34,7 @@ class MessagesController < ApplicationController
 
     private
     def create_params(params)
-        params.permit(:first_name, :last_name, :email, :subject, :message)
+        params.permit(:first_name, :last_name, :email, :subject, :message, :campaign_id)
     end
 end
   

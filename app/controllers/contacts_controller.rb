@@ -1,15 +1,16 @@
 class ContactsController < ApplicationController
     include CandidateXYZ::Concerns::Authenticatable
-    before_action :authenticate
+    before_action :authenticate, except: [ :create, :unsubscribe ]
+    before_action :authenticate_campaign_id, except: [ :create, :unsubscribe ]
 
     def index
-        @contacts = Contact.all
+        @contacts = Contact.where( :campaign_id => @campaign_id )
 
         render
     end
 
     def show
-        @contact = Contact.find(params[:id])
+        @contact = Contact.where( :id => params[:id], :campaign_id => @campaign_id ).first
         
         render
     end
@@ -25,7 +26,7 @@ class ContactsController < ApplicationController
     end
 
     def update
-        @contact = Contact.find(params[:id])
+        @contact = Contact.where( :id => params[:id], :campaign_id => @campaign_id ).first
 
         if @contact.update(update_params(params))
             render 'show'
@@ -35,7 +36,7 @@ class ContactsController < ApplicationController
     end
 
     def destroy
-        @contact = Contact.find(params[:id])
+        @contact = Contact.where( :id => params[:id], :campaign_id => @campaign_id ).first
         @contact.destroy
 
         render_success
@@ -45,7 +46,7 @@ class ContactsController < ApplicationController
         token = Rails.application.message_verifier(:unsubscribe).verify(params[:token])
         contact = Contact.find(token)
 
-        Contact.where( email: contact.email ).map { |contact|
+        Contact.where( :email => contact.email, :campaign_id => contact.campaign_id ).map { |contact|
             contact.destroy
         }
 
@@ -54,7 +55,7 @@ class ContactsController < ApplicationController
 
     private
     def create_params(params)
-        params.permit(:email, :first_name, :last_name, :zipcode, :phone_number)
+        params.permit(:email, :first_name, :last_name, :zipcode, :phone_number, :campaign_id)
     end
 
     def update_params(params)

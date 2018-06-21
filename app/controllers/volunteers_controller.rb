@@ -1,10 +1,11 @@
 class VolunteersController < ApplicationController
     include CandidateXYZ::Concerns::Authenticatable
-    before_action :authenticate
+    before_action :authenticate, except: [ :create ]
+    before_action :authenticate_campaign_id, except: [ :create ]
     
     def index
         if (params[:page_number].nil?)
-            @volunteers = Volunteer.all
+            @volunteers = Volunteer.where( :campaign_id => @campaign_id )
         else
             @volunteers = filter_by_page
         end
@@ -18,7 +19,7 @@ class VolunteersController < ApplicationController
     end
 
     def show
-        @volunteer = Volunteer.find(params[:id])
+        @volunteer = Volunteer.where( :id => params[:id], :campaign_id => @campaign_id ).first
         
         render
     end
@@ -34,7 +35,7 @@ class VolunteersController < ApplicationController
     end
 
     def update
-        @volunteer = Volunteer.find(params[:id])
+        @volunteer = Volunteer.where( :id => params[:id], :campaign_id => @campaign_id ).first
 
         if @volunteer.update(update_params(params))
             render 'show'
@@ -44,7 +45,7 @@ class VolunteersController < ApplicationController
     end
 
     def destroy
-        @volunteer = Volunteer.find(params[:id])
+        @volunteer = Volunteer.where( :id => params[:id], :campaign_id => @campaign_id ).first
         @volunteer.destroy
 
         render_success
@@ -52,7 +53,7 @@ class VolunteersController < ApplicationController
 
     private
     def create_params(params)
-        params.permit(:email, :phone_number, :first_name, :last_name, :address, :zipcode, :city, :state, :help_blurb)
+        params.permit(:email, :phone_number, :first_name, :last_name, :address, :zipcode, :city, :state, :help_blurb, :campaign_id)
     end
 
     def update_params(params)
@@ -69,6 +70,6 @@ class VolunteersController < ApplicationController
         order = params[:order].nil? ? 'created_at' : params[:order]
         descending = params[:descending] == 'true' ? 'desc' : 'asc'
         
-        Volunteer.all.order(order => descending)
+        Volunteer.where( :campaign_id => @campaign_id ).order(order => descending)
     end
 end
