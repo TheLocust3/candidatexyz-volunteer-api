@@ -30,7 +30,9 @@ sudo systemctl restart nginx
 # setup server
 cd /home/ubuntu/rails
 
-wget --no-check-certificate --no-proxy http://$BUCKET.s3.amazonaws.com/common.tar.gz
+sudo apt-get -y awscli
+
+aws s3 sync s3://candidatexyz-volunteerapi/common.tar.gz common.tar.gz
 tar -xvzf common.tar.gz
 
 # pull secrets

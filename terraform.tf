@@ -125,9 +125,27 @@ data "aws_iam_policy_document" "ec2-role" {
   }
 }
 
+data "aws_iam_policy_document" "s3" {
+  statement {
+    actions   = ["s3:GetObject", "s3:ListBucket"]
+    resources = ["arn:aws:s3:::${aws_s3_bucket.bucket.bucket}", "arn:aws:s3:::${aws_s3_bucket.bucket.bucket}/*"]
+  }
+}
+
+resource "aws_iam_policy" "s3" {
+  name   = "${var.name}-ec2-s3"
+  path   = "/"
+  policy = "${data.aws_iam_policy_document.s3.json}"
+}
+
 resource "aws_iam_role" "ec2-role" {
   name               = "${var.name}-ec2"
   assume_role_policy = "${data.aws_iam_policy_document.ec2-role.json}"
+}
+
+resource "aws_iam_role_policy_attachment" "s3" {
+  role       = "${aws_iam_role.ec2-role.name}"
+  policy_arn = "${aws_iam_policy.s3.arn}"
 }
 
 resource "aws_iam_role_policy_attachment" "ec2-role-for-codedeploy" {

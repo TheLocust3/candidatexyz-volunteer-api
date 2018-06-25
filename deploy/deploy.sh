@@ -6,8 +6,6 @@ NAME=volunteerapi
 BUCKET=candidatexyz-$NAME
 DEPLOYMENT_GROUP=production
 
-aws s3 mb s3://$BUCKET
-
 git clone https://github.com/TheLocust3/candidatexyz-common.git common
 tar -czvf common.tar.gz common
 
