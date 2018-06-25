@@ -24,4 +24,4 @@ end
 
 gem 'httparty'
 
-gem 'candidatexyz-common', :github => 'TheLocust3/candidatexyz-common'
+gem 'candidatexyz-common', :github => 'TheLocust3/candidatexyz-common', :branch => 'master'
