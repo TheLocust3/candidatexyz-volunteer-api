@@ -26,7 +26,7 @@ class Volunteer < ApplicationRecord
   private
   def sanitize_phone_number
     unless self.phone_number.nil?
-      self.phone_number = self.phone_number.gsub('-', '').gsub('(', '').gsub(')', '') # (123)-123-1234
+      self.phone_number = self.phone_number.gsub('-', '').gsub('(', '').gsub(')', '').gsub('+', '') # (123)-123-1234
     end
   end
 end
