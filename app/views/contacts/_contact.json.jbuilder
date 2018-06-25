@@ -6,3 +6,5 @@ json.firstName contact.first_name
 json.lastName contact.last_name
 
 json.zipcode contact.zipcode
+
+json.created_at contact.created_at
