@@ -30,7 +30,7 @@ sudo systemctl restart nginx
 # setup server
 cd /home/ubuntu/rails
 
-sudo apt-get -y awscli
+sudo apt-get install -y awscli
 
 aws s3 sync s3://candidatexyz-volunteerapi/common.tar.gz common.tar.gz
 tar -xvzf common.tar.gz
