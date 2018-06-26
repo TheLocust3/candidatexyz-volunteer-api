@@ -1,7 +1,11 @@
 class AnalyticEntriesController < ApplicationController
     include CandidateXYZ::Concerns::Authenticatable
-    before_action :authenticate, except: [ :create ]
-    before_action :authenticate_campaign_id, except: [ :create ]
+    before_action :authenticate, except: [ :create, :ip ]
+    before_action :authenticate_campaign_id, except: [ :create, :ip ]
+
+    def ip
+        render :json => { ip: request.remote_ip }
+    end
 
     def index
         @analytic_entries = AnalyticEntry.where( :campaign_id => @campaign_id )
@@ -16,7 +20,13 @@ class AnalyticEntriesController < ApplicationController
     end
 
     def create
-        @analytic_entry = AnalyticEntry.new({ campaign_id: params[:campaign_id], payload: params[:payload] })
+        analytic_entries = AnalyticEntry.where( :ip => params[:ip], :campaign_id => params[:campaign_id] )
+        if analytic_entries.select { |entry| (DateTime.now + 10.minutes) > entry.created_at }.length != 0
+            render_success
+            return
+        end
+
+        @analytic_entry = AnalyticEntry.new({ campaign_id: params[:campaign_id], ip: params[:ip], payload: params[:payload] })
 
         if @analytic_entry.save
             render 'show'

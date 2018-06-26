@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   resources :messages, defaults: { format: :json }
 
   resources :analytic_entries, defaults: { format: :json }
+  get 'ip' => 'analytic_entries#ip'
 end
