@@ -20,12 +20,6 @@ class AnalyticEntriesController < ApplicationController
     end
 
     def create
-        analytic_entries = AnalyticEntry.where( :ip => params[:ip], :campaign_id => params[:campaign_id] )
-        if analytic_entries.select { |entry| (DateTime.now + 10.minutes) > entry.created_at }.length != 0
-            render_success
-            return
-        end
-
         @analytic_entry = AnalyticEntry.new({ campaign_id: params[:campaign_id], ip: params[:ip], payload: params[:payload] })
 
         if @analytic_entry.save
