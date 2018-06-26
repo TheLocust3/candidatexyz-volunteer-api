@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   resources :contacts, defaults: { format: :json }
   
   resources :messages, defaults: { format: :json }
+
+  resources :analytic_entries, defaults: { format: :json }
 end

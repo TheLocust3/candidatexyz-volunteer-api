@@ -9,7 +9,6 @@ class ApplicationController < ActionController::API
         render :json => { 'errors': model.errors.messages }, :status => 400
     end
 
-    private
     def not_found
         render :json => {}, :status => 404
     end
