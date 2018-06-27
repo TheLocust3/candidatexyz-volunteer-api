@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   
   resources :messages, defaults: { format: :json }
 
+  get 'analytic_entries/aggregate' => 'analytic_entries#aggregate'
   resources :analytic_entries, defaults: { format: :json }
   get 'ip' => 'analytic_entries#ip'
 end
