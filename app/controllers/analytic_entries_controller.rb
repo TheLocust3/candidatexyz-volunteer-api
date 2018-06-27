@@ -16,7 +16,11 @@ class AnalyticEntriesController < ApplicationController
     def show
         @analytic_entry = AnalyticEntry.where( :id => params[:id], :campaign_id => @campaign_id ).first
         
-        render
+        if @analytic_entry.nil?
+            not_found
+        else
+            render
+        end
     end
 
     def create

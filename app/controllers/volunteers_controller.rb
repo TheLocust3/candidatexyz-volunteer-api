@@ -21,7 +21,11 @@ class VolunteersController < ApplicationController
     def show
         @volunteer = Volunteer.where( :id => params[:id], :campaign_id => @campaign_id ).first
         
-        render
+        if @volunteer.nil?
+            not_found
+        else
+            render
+        end
     end
 
     def create

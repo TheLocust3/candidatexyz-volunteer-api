@@ -12,7 +12,11 @@ class MessagesController < ApplicationController
     def show
         @message = Message.where( :id => params[:id], :campaign_id => @campaign_id ).first
 
-        render
+        if @message.nil?
+            not_found
+        else
+            render
+        end
     end
 
     def create

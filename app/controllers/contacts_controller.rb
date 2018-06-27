@@ -12,7 +12,11 @@ class ContactsController < ApplicationController
     def show
         @contact = Contact.where( :id => params[:id], :campaign_id => @campaign_id ).first
         
-        render
+        if @contact.nil?
+            not_found
+        else
+            render
+        end
     end
 
     def create
