@@ -23,5 +23,6 @@ group :development do
 end
 
 gem 'httparty'
+gem 'aws-sdk'
 
 gem 'candidatexyz-common', :github => 'TheLocust3/candidatexyz-common', :branch => 'master'
