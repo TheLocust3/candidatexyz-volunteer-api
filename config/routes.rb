@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   get 'volunteers/number-of-pages' => 'volunteers#get_number_of_pages'
   resources :volunteers, defaults: { format: :json }
 
-  delete 'contacts/unsubscribe' => 'contacts#unsubscribe'
   post 'contacts/send_email' => 'mail#send_to_contacts'
   resources :contacts, defaults: { format: :json }
   
