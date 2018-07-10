@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   get 'ip' => 'analytic_entries#ip'
 
   resources :images
+
+  resources :donors, defaults: { format: :json }
 end

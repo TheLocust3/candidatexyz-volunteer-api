@@ -1,7 +1,7 @@
 class ContactsController < ApplicationController
     include CandidateXYZ::Concerns::Authenticatable
-    before_action :authenticate, except: [ :create, :unsubscribe ]
-    before_action :authenticate_campaign_id, except: [ :create, :unsubscribe ]
+    before_action :authenticate, except: [ :create ]
+    before_action :authenticate_campaign_id, except: [ :create ]
 
     def index
         @contacts = Contact.where( :campaign_id => @campaign_id )
