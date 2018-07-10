@@ -1,4 +1,4 @@
-class ContactsController < ApplicationController
+class DonorsController < ApplicationController
     include CandidateXYZ::Concerns::Authenticatable
     before_action :authenticate
     before_action :authenticate_campaign_id

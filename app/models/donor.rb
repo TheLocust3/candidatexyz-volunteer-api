@@ -1,4 +1,4 @@
-class Contact < ApplicationRecord
+class Donor < ApplicationRecord
     validates :campaign_id, presence: true
     validates :name, presence: true
     validates :address, presence: true
