@@ -11,7 +11,7 @@ class CreateDonors < ActiveRecord::Migration[5.1]
       t.string :occupation, default: ''
       t.string :employer, default: ''
 
-      t.monetize :amount, null: false
+      t.monetize :amount, default: 0, null: false
 
       t.string :campaign_id, null: false
 
