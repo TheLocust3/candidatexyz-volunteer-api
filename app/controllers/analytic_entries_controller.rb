@@ -73,7 +73,7 @@ class AnalyticEntriesController < ApplicationController
             if by == 'hour'
                 DateTime.new(created_at.year, created_at.month, created_at.day, created_at.hour, 0, 0)
             elsif by == 'day'
-                DateTime.new(created_at.year, created_at.month, created_at.day, 0, 0, 0)
+                DateTime.new(created_at.year, created_at.month, created_at.day, 4, 0, 0)
             elsif by == 'month'
                 DateTime.new(created_at.year, created_at.month, 1, 0, 0, 0)
             else by == 'year'
