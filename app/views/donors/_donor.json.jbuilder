@@ -12,5 +12,6 @@ json.occupation donor.occupation
 json.employer donor.employer
 
 json.amount donor.amount.to_i
+json.amountString donor.amount.format
 
 json.created_at donor.created_at
