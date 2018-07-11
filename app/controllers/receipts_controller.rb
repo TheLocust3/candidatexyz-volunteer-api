@@ -1,18 +1,18 @@
-class DonorsController < ApplicationController
+class ReceiptsController < ApplicationController
     include CandidateXYZ::Concerns::Authenticatable
     before_action :authenticate
     before_action :authenticate_campaign_id
 
     def index
-        @donors = Donor.where( :campaign_id => @campaign_id )
+        @receipts = Receipt.where( :campaign_id => @campaign_id )
 
         render
     end
 
     def show
-        @donor = Donor.where( :id => params[:id], :campaign_id => @campaign_id ).first
+        @receipt = Receipt.where( :id => params[:id], :campaign_id => @campaign_id ).first
         
-        if @donor.nil?
+        if @receipt.nil?
             not_found
         else
             render
@@ -20,28 +20,28 @@ class DonorsController < ApplicationController
     end
 
     def create
-        @donor = Donor.new(create_params(params))
+        @receipt = Receipt.new(create_params(params))
 
-        if @donor.save
+        if @receipt.save
             render 'show'
         else
-            render_errors(@donor)
+            render_errors(@receipt)
         end
     end
 
     def update
-        @donor = Donor.where( :id => params[:id], :campaign_id => @campaign_id ).first
+        @receipt = Receipt.where( :id => params[:id], :campaign_id => @campaign_id ).first
 
-        if @donor.update(update_params(params))
+        if @receipt.update(update_params(params))
             render 'show'
         else
-            render_errors(@donor)
+            render_errors(@receipt)
         end
     end
 
     def destroy
-        @donor = Donor.where( :id => params[:id], :campaign_id => @campaign_id ).first
-        @donor.destroy
+        @receipt = Receipt.where( :id => params[:id], :campaign_id => @campaign_id ).first
+        @receipt.destroy
 
         render_success
     end

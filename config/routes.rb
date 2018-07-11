@@ -14,5 +14,5 @@ Rails.application.routes.draw do
 
   resources :images
 
-  resources :donors, defaults: { format: :json }
+  resources :receipts, defaults: { format: :json }
 end

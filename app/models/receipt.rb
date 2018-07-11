@@ -1,4 +1,4 @@
-class Donor < ApplicationRecord
+class Receipt < ApplicationRecord
   validates :campaign_id, presence: true
   validates :name, presence: true
   validates :address, presence: true

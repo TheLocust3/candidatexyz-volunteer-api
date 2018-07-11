@@ -1,6 +1,6 @@
 class CreateDonors < ActiveRecord::Migration[5.1]
   def change
-    create_table :donors do |t|
+    create_table :donors, id: :uuid, default: "uuid_generate_v4()" do |t|
       t.string :name, null: false
       t.string :address, null: false
       t.string :zipcode, null: false
