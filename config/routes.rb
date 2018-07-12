@@ -19,4 +19,6 @@ Rails.application.routes.draw do
   resources :expenditures, defaults: { format: :json }
 
   resources :in_kinds, defaults: { format: :json }
+  
+  resources :liabilities, defaults: { format: :json }
 end
