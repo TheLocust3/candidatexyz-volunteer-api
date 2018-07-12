@@ -1,5 +1,5 @@
 json.id liability.id
-json.toWhom liability.from_whom
+json.toWhom liability.to_whom
 json.purpose liability.purpose
 
 json.address liability.address

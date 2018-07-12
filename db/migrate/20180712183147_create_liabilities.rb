@@ -1,6 +1,6 @@
 class CreateLiabilities < ActiveRecord::Migration[5.1]
   def change
-    create_table :liabilities do |t|
+    create_table :liabilities, id: :uuid, default: "uuid_generate_v4()" do |t|
       t.string :to_whom, null: false
       t.string :purpose, null: false
 
