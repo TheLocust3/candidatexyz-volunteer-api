@@ -4,13 +4,13 @@ class InKindsController < ApplicationController
     before_action :authenticate_campaign_id
 
     def index
-        @in_kinds = InKinds.where( :campaign_id => @campaign_id )
+        @in_kinds = InKind.where( :campaign_id => @campaign_id )
 
         render
     end
 
     def show
-        @in_kind = InKinds.where( :id => params[:id], :campaign_id => @campaign_id ).first
+        @in_kind = InKind.where( :id => params[:id], :campaign_id => @campaign_id ).first
         
         if @in_kind.nil?
             not_found
@@ -20,7 +20,7 @@ class InKindsController < ApplicationController
     end
 
     def create
-        @in_kind = InKinds.new(create_params(params))
+        @in_kind = InKind.new(create_params(params))
 
         if @in_kind.save
             render 'show'
@@ -30,7 +30,7 @@ class InKindsController < ApplicationController
     end
 
     def update
-        @in_kind = InKinds.where( :id => params[:id], :campaign_id => @campaign_id ).first
+        @in_kind = InKind.where( :id => params[:id], :campaign_id => @campaign_id ).first
 
         if @in_kind.update(update_params(params))
             render 'show'
@@ -40,7 +40,7 @@ class InKindsController < ApplicationController
     end
 
     def destroy
-        @in_kind = InKinds.where( :id => params[:id], :campaign_id => @campaign_id ).first
+        @in_kind = InKind.where( :id => params[:id], :campaign_id => @campaign_id ).first
         @in_kind.destroy
 
         render_success

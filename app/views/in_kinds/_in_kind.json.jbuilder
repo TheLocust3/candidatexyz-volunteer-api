@@ -12,6 +12,6 @@ json.value in_kind.value.to_f
 json.valueString in_kind.value.format
 
 json.email in_kind.email
-json.phoneNumber in_kind.phoneNumber
+json.phoneNumber in_kind.phone_number
 
 json.createdAt in_kind.created_at

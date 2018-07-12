@@ -1,3 +1,3 @@
-json.expenditures @expenditures do |expenditure|
-    json.partial! 'expenditures/expenditure', expenditure: expenditure
+json.in_kinds @in_kinds do |in_kind|
+    json.partial! 'in_kinds/in_kind', in_kind: in_kind
 end
