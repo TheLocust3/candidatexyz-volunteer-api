@@ -14,4 +14,8 @@ json.employer receipt.employer
 json.amount receipt.amount.to_i
 json.amountString receipt.amount.format
 
+json.receiptType receipt.receipt_type
+json.email receipt.email
+json.phoneNumber receipt.phone_number
+
 json.created_at receipt.created_at

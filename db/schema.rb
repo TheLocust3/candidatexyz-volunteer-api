@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180710184435) do
+ActiveRecord::Schema.define(version: 20180712140024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,22 +35,6 @@ ActiveRecord::Schema.define(version: 20180710184435) do
     t.string "campaign_id", null: false
   end
 
-  create_table "donors", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "address", null: false
-    t.string "zipcode", null: false
-    t.string "city", null: false
-    t.string "state", null: false
-    t.datetime "date_received", null: false
-    t.string "occupation", default: ""
-    t.string "employer", default: ""
-    t.integer "amount_cents", default: 0, null: false
-    t.string "amount_currency", default: "USD", null: false
-    t.string "campaign_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "images", force: :cascade do |t|
     t.string "identifier", null: false
     t.string "url", null: false
@@ -67,6 +51,25 @@ ActiveRecord::Schema.define(version: 20180710184435) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "campaign_id", null: false
+  end
+
+  create_table "receipts", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "address", null: false
+    t.string "zipcode", null: false
+    t.string "city", null: false
+    t.string "state", null: false
+    t.datetime "date_received", null: false
+    t.string "occupation", default: ""
+    t.string "employer", default: ""
+    t.integer "amount_cents", default: 0, null: false
+    t.string "amount_currency", default: "USD", null: false
+    t.string "campaign_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "email"
+    t.string "phone_number"
+    t.string "receipt_type", default: "donation", null: false
   end
 
   create_table "volunteers", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|

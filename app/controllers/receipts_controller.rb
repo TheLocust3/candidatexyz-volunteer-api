@@ -48,10 +48,10 @@ class ReceiptsController < ApplicationController
 
     private
     def create_params(params)
-        params.permit(:name, :address, :zipcode, :city, :state, :date_received, :occupation, :employer, :amount, :campaign_id)
+        params.permit(:name, :address, :zipcode, :city, :state, :date_received, :occupation, :employer, :amount, :email, :phone_number, :receipt_type, :campaign_id)
     end
 
     def update_params(params)
-        params.permit(:name, :address, :zipcode, :city, :state, :date_received, :occupation, :employer, :amount)
+        params.permit(:name, :address, :zipcode, :city, :state, :date_received, :occupation, :employer, :amount, :email, :phone_number)
     end
 end
