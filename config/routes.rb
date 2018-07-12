@@ -17,4 +17,6 @@ Rails.application.routes.draw do
   resources :receipts, defaults: { format: :json }
   
   resources :expenditures, defaults: { format: :json }
+
+  resources :in_kinds, defaults: { format: :json }
 end

@@ -11,7 +11,7 @@ json.dateReceived receipt.date_received
 json.occupation receipt.occupation
 json.employer receipt.employer
 
-json.amount receipt.amount.to_i
+json.amount receipt.amount.to_f
 json.amountString receipt.amount.format
 
 json.receiptType receipt.receipt_type
