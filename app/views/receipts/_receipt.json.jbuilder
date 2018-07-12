@@ -2,9 +2,9 @@ json.id receipt.id
 json.name receipt.name
 
 json.address receipt.address
-json.zipcode receipt.zipcode
 json.city receipt.city
 json.state receipt.state
+json.country receipt.country
 
 json.dateReceived receipt.date_received
 
