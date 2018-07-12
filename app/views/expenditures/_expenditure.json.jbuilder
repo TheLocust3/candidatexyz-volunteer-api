@@ -11,4 +11,4 @@ json.datePaid expenditure.date_paid
 json.amount expenditure.amount.to_f
 json.amountString expenditure.amount.format
 
-json.created_at expenditure.created_at
+json.createdAt expenditure.created_at

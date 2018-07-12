@@ -18,4 +18,4 @@ json.receiptType receipt.receipt_type
 json.email receipt.email
 json.phoneNumber receipt.phone_number
 
-json.created_at receipt.created_at
+json.createdAt receipt.created_at

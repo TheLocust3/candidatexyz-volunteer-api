@@ -7,4 +7,4 @@ json.lastName contact.last_name
 
 json.zipcode contact.zipcode
 
-json.created_at contact.created_at
+json.createdAt contact.created_at

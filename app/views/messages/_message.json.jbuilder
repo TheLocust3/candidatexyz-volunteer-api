@@ -7,4 +7,4 @@ json.lastName message.last_name
 json.subject message.subject
 json.message message.message
 
-json.created_at message.created_at
+json.createdAt message.created_at

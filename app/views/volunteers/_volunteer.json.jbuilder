@@ -11,7 +11,7 @@ json.city volunteer.city
 json.state volunteer.state
 json.helpBlurb volunteer.help_blurb
 
-json.created_at volunteer.created_at
+json.createdAt volunteer.created_at
 
 json.contact do
     json.partial! 'contacts/contact', contact: volunteer.contact 
