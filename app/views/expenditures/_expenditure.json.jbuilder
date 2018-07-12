@@ -8,6 +8,7 @@ json.state expenditure.state
 json.country expenditure.country
 
 json.datePaid expenditure.date_paid
-json.amount expenditure.amount
+json.amount expenditure.amount.to_i
+json.amountString expenditure.amount.format
 
 json.created_at expenditure.created_at

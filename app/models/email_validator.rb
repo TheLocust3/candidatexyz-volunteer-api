@@ -1,6 +1,6 @@
 class EmailValidator < ActiveModel::EachValidator
     def validate_each(record, attribute, value)
-        if value.nil?
+        if value.nil? || value.empty?
             return
         end
 
