@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180712193744) do
+ActiveRecord::Schema.define(version: 20180713141352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,6 +117,15 @@ ActiveRecord::Schema.define(version: 20180712193744) do
     t.string "phone_number"
     t.string "receipt_type", default: "donation", null: false
     t.string "country"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.string "report_type", null: false
+    t.datetime "beginning_date", null: false
+    t.datetime "ending_date", null: false
+    t.string "campaign_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "volunteers", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|

@@ -15,11 +15,8 @@ class ImagesController < ApplicationController
     def create
         image = Image.new(create_params(params))
 
-        bucket = "#{Rails.application.secrets.project_name}-images"
-        key = "#{@campaign_id}/#{image.identifier}"
-
-        S3.put_object(bucket: bucket, key: key, body: Base64.decode64(params[:image]), acl: 'public-read')
-        image.url = "https://s3.amazonaws.com/#{bucket}/#{key}"
+        S3.put_object(bucket: bucket, key: key(image), body: Base64.decode64(params[:image]), acl: 'public-read')
+        image.url = "https://s3.amazonaws.com/#{bucket}/#{key(image)}"
 
         if image.save
             render :json => image
@@ -32,12 +29,22 @@ class ImagesController < ApplicationController
         image = Image.find(params[:id])
         image.destroy
 
+        S3.delete_object(bucket: bucket, key: key(image))
+
         render_success
     end
 
     private
     def create_params(params)
         params.permit(:identifier)
+    end
+
+    def bucket
+        "#{Rails.application.secrets.project_name}-images"
+    end
+
+    def key(image)
+        "#{@campaign_id}/#{image.identifier}"
     end
   end
   
