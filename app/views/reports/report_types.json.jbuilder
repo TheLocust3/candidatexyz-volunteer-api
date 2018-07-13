@@ -1,1 +1,1 @@
-json.ma @report_types.ma
+json.ma @report_types[:ma]

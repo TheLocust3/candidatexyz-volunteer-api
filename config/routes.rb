@@ -23,4 +23,5 @@ Rails.application.routes.draw do
   resources :liabilities, defaults: { format: :json }
 
   resources :reports, defaults: { format: :json }
+  get 'report_types' => 'reports#report_types'
 end

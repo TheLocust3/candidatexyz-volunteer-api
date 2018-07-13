@@ -5,14 +5,14 @@ class ReportsController < ApplicationController
 
     def index
         @reports = Report.where( :campaign_id => @campaign_id )
-        @base_url = base_url(report)
+        @base_url = base_url
 
         render
     end
 
     def show
         @report = Report.where( :id => params[:id], :campaign_id => @campaign_id ).first
-        @base_url = base_url(report)
+        @base_url = base_url
         
         if @report.nil?
             not_found
@@ -29,12 +29,11 @@ class ReportsController < ApplicationController
 
     def create
         @report = Report.new(create_params(params))
-
-        GenerateReportJob.perform_later(@report)
-
-        @base_url = base_url(report)
+        @base_url = base_url
 
         if @report.save
+            # GenerateReportJob.perform_later(@report)
+
             render 'show'
         else
             render_errors(@report)
@@ -59,7 +58,7 @@ class ReportsController < ApplicationController
         params.permit(:report_type, :beginning_date, :ending_date)
     end
 
-    def base_url(report)
+    def base_url
         "https://s3.amazonaws.com/#{bucket}/#{@campaign_id}"
     end
 
