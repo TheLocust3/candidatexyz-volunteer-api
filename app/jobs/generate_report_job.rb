@@ -17,10 +17,10 @@ class GenerateReportJob < ApplicationJob
     out_filename = "pdf/tmp/#{report.id}.pdf"
     json_filename = "pdf/tmp/#{report.id}.json"
 
-    receipts = Receipt.where( :created_at => (report.beginning_date..report.ending_date) )
-    expenditures = Expenditure.where( :created_at => (report.beginning_date..report.ending_date) )
-    in_kinds = InKind.where( :created_at => (report.beginning_date..report.ending_date) )
-    liabilities = Liability.where( :created_at => (report.beginning_date..report.ending_date) )
+    receipts = Receipt.where( :created_at => (report.beginning_date..report.ending_date), :campaign_id => campaign_id )
+    expenditures = Expenditure.where( :created_at => (report.beginning_date..report.ending_date), :campaign_id => campaign_id )
+    in_kinds = InKind.where( :created_at => (report.beginning_date..report.ending_date), :campaign_id => campaign_id )
+    liabilities = Liability.where( :created_at => (report.beginning_date..report.ending_date), :campaign_id => campaign_id )
 
     reportJson = ReportJSON.new(report_state, report, receipts, expenditures, in_kinds, liabilities)
     reportJson.save(json_filename)
