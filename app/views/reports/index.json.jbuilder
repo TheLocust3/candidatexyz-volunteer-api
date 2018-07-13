@@ -1,3 +1,3 @@
 json.reports @reports do |report|
-    json.partial! 'reports/report', report: report, url_base: @url_base
+    json.partial! 'reports/report', report: report, base_url: @base_url
 end

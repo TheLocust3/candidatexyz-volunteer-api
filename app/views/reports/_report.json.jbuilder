@@ -5,6 +5,6 @@ json.reportTypeName report.report_type_name
 json.beginningDate report.beginning_date
 json.endingDate report.ending_date
 
-json.url "#{url_base}/#{report.id}.pdf"
+json.url "#{base_url}/#{report.id}.pdf"
 
 json.createdAt report.created_at
