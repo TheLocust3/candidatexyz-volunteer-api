@@ -32,7 +32,7 @@ class ReportsController < ApplicationController
         @base_url = base_url
 
         if @report.save
-            # GenerateReportJob.perform_later(@report)
+            GenerateReportJob.perform_later(@report, @campaign_id)
 
             render 'show'
         else

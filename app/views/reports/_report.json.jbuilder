@@ -1,5 +1,6 @@
 json.id report.id
 json.reportType report.report_type
+json.status report.status
 json.reportTypeName report.report_type_name
 
 json.beginningDate report.beginning_date

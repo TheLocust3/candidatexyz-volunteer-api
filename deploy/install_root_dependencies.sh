@@ -15,5 +15,9 @@ cd ~/.rbenv/plugins
 rm -rf ruby-build/
 git clone https://github.com/sstephenson/ruby-build.git # update ruby-build definitions
 
+# install python
+sudo apt-get install -y python3
+pip3 install PyPDF2
+
 # setup nginx + passenger
 sudo apt-get install -y nginx

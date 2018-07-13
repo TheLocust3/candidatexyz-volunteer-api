@@ -9,6 +9,7 @@ class Report < ApplicationRecord
   validates :campaign_id, presence: true
 
   validates :report_type, presence: true
+  validates :status, presence: true
   validates :beginning_date, presence: true
   validates :ending_date, presence: true
 
@@ -29,12 +30,8 @@ class Report < ApplicationRecord
 
   private
   def dates
-    if self.persisted?
-        if beginning_date > ending_date
-            errors.add(:beginning_date, 'must be before ending date')
-
-            self.reload
-        end
+    if beginning_date > ending_date
+        errors.add(:beginning_date, 'must be before ending date')
     end
   end
 end
