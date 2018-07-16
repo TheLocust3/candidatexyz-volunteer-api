@@ -56,7 +56,7 @@ class ReportsController < ApplicationController
 
     private
     def create_params(params)
-        params.permit(:report_type, :beginning_date, :ending_date, :campaign_id)
+        params.permit(:report_type, :beginning_date, :ending_date, :official, :campaign_id)
     end
 
     def update_params(params)
@@ -64,14 +64,14 @@ class ReportsController < ApplicationController
     end
 
     def base_url
-        "https://s3.amazonaws.com/#{bucket}/#{@campaign_id}"
+        "https://s3.amazonaws.com/#{bucket}/reports/#{@campaign_id}"
     end
 
     def bucket
-        "#{Rails.application.secrets.project_name}-reports"
+        "#{Rails.application.secrets.project_name}-public"
     end
 
     def key(report)
-        "#{@campaign_id}/#{report.id}.pdf"
+        "reports/#{@campaign_id}/#{report.id}.pdf"
     end
 end
