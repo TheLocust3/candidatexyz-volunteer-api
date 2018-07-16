@@ -1,7 +1,13 @@
+require 'json'
+
 class GenerateReportJob < ApplicationJob
+  include CandidateXYZ::Concerns::Request
+
   queue_as :default
 
-  def perform(report, campaign_id)
+  def perform(headers, report, campaign_id)
+    @headers = headers
+
     report.status = 'generating'
     report.save
 
@@ -21,8 +27,10 @@ class GenerateReportJob < ApplicationJob
     expenditures = Expenditure.where( :created_at => (report.beginning_date..report.ending_date), :campaign_id => campaign_id )
     in_kinds = InKind.where( :created_at => (report.beginning_date..report.ending_date), :campaign_id => campaign_id )
     liabilities = Liability.where( :created_at => (report.beginning_date..report.ending_date), :campaign_id => campaign_id )
+    campaign = nil
+    users = get("#{Rails.application.secrets.auth_api}/campaigns/users_with_committee_positions?id=#{campaign_id}")['users']
 
-    reportJson = ReportJSON.new(report_state, report, receipts, expenditures, in_kinds, liabilities)
+    reportJson = ReportJSON.new(report_state, report, receipts, expenditures, in_kinds, liabilities, campaign, users)
     reportJson.save(json_filename)
 
     `python3 pdf/fill_pdf.py #{in_filename} #{out_filename} #{json_filename}`
@@ -35,5 +43,10 @@ class GenerateReportJob < ApplicationJob
 
     report.status = 'done'
     report.save
+  end
+
+  private
+  def auth_headers
+    @headers
   end
 end

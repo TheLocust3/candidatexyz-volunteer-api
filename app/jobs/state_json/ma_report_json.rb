@@ -4,7 +4,7 @@ module StateJSON
   class MAReportJSON
     attr_reader :data
 
-    def initialize(report, receipts, expenditures, in_kinds, liabilities)
+    def initialize(report, receipts, expenditures, in_kinds, liabilities, campaign, users)
       @data = Hash.new
 
       @report = report
@@ -12,6 +12,8 @@ module StateJSON
       @expenditures = expenditures
       @in_kinds = in_kinds
       @liabilities = liabilities
+      @campaign = campaign
+      @users = users
 
       generate
     end
@@ -39,11 +41,39 @@ module StateJSON
         data['checkbox']['cbDissolution[0]'] = '/On'
       end
 
+      generate_candidate
+      generate_committee
       generate_summary
       generate_receipts
       generate_expenditures
       generate_in_kinds
       generate_liabilities
+    end
+
+    def generate_candidate
+      candidate = @users.select { |user| user['position'] == 'Candidate' }.first
+
+      data['textfield']['txtCandName[0]'] = "#{candidate['firstName']} #{candidate['lastName']}"
+
+      # TODO: office sought
+
+      data['textfield']['txtCandAddress[0]'] = "#{candidate['address']}, #{candidate['city']}, #{candidate['state']}, #{candidate['country']}"
+      data['textfield']['txtCandPhone[1]'] = candidate['email']
+      data['textfield']['txtCandPhone[0]'] = candidate['phoneNumber']
+    end
+
+    def generate_committee
+      # TODO: committee name
+
+      treasurer = @users.select { |user| user['position'] == 'Treasurer' }.first
+
+      data['textfield']['txtTreasurer[0]'] = "#{treasurer['firstName']} #{treasurer['lastName']}"
+
+      # TODO: committee mailing address
+      
+      # TODO: committee email
+
+      # TODO: committee phone number
     end
 
     def generate_summary

@@ -32,7 +32,12 @@ class ReportsController < ApplicationController
         @base_url = base_url
 
         if @report.save
-            GenerateReportJob.perform_later(@report, @campaign_id)
+            auth_headers = {
+              uid: request.headers['uid'],
+              client: request.headers['client'],
+              'access-token': request.headers['access-token']
+            }
+            GenerateReportJob.perform_later(auth_headers, @report, @campaign_id)
 
             render 'show'
         else
