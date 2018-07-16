@@ -4,7 +4,7 @@ module StateJSON
   class MAReportJSON
     attr_reader :data
 
-    def initialize(report, receipts, expenditures, in_kinds, liabilities, campaign, users)
+    def initialize(report, receipts, expenditures, in_kinds, liabilities, campaign, users, committee)
       @data = Hash.new
 
       @report = report
@@ -14,6 +14,7 @@ module StateJSON
       @liabilities = liabilities
       @campaign = campaign
       @users = users
+      @committee = committee
 
       generate
     end
@@ -55,7 +56,7 @@ module StateJSON
 
       data['textfield']['txtCandName[0]'] = "#{candidate['firstName']} #{candidate['lastName']}"
 
-      # TODO: office sought
+      data['textfield']['txtOfficeDistrict[0]'] = "#{@committee['office']}, #{@committee['district']}"
 
       data['textfield']['txtCandAddress[0]'] = "#{candidate['address']}, #{candidate['city']}, #{candidate['state']}, #{candidate['country']}"
       data['textfield']['txtCandPhone[1]'] = candidate['email']
@@ -63,17 +64,15 @@ module StateJSON
     end
 
     def generate_committee
-      # TODO: committee name
+      data['textfield']['txtCommName[0]'] = @committee['name']
 
       treasurer = @users.select { |user| user['position'] == 'Treasurer' }.first
 
       data['textfield']['txtTreasurer[0]'] = "#{treasurer['firstName']} #{treasurer['lastName']}"
 
-      # TODO: committee mailing address
-      
-      # TODO: committee email
-
-      # TODO: committee phone number
+      data['textfield']['txtCommAddress[0]'] = "#{@committee['address']}, #{@committee['city']}, #{@committee['state']}, #{@committee['country']}"
+      data['textfield']['txtCandPhone[2]'] = @committee['email']
+      data['textfield']['txtCommPhone[0]'] = @committee['phoneNumber']
     end
 
     def generate_summary

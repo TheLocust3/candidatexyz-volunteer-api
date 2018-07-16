@@ -3,7 +3,7 @@ require 'json'
 class ReportJSON
   attr_reader :data
 
-  def initialize(state, report, receipts, expenditures, in_kinds, liabilities, campaign, users)
+  def initialize(state, report, receipts, expenditures, in_kinds, liabilities, campaign, users, committee)
     @report = report
     @receipts = receipts
     @expenditures = expenditures
@@ -11,9 +11,10 @@ class ReportJSON
     @liabilities = liabilities
     @campaign = campaign
     @users = users
+    @committee = committee
 
     if state.to_s == 'ma'
-      @data = StateJSON::MAReportJSON.new(report, receipts, expenditures, in_kinds, liabilities, campaign, users).data
+      @data = StateJSON::MAReportJSON.new(report, receipts, expenditures, in_kinds, liabilities, campaign, users, committee).data
     end
   end
 

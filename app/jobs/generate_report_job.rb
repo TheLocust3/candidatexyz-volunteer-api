@@ -27,10 +27,11 @@ class GenerateReportJob < ApplicationJob
     expenditures = Expenditure.where( :created_at => (report.beginning_date..report.ending_date), :campaign_id => campaign_id )
     in_kinds = InKind.where( :created_at => (report.beginning_date..report.ending_date), :campaign_id => campaign_id )
     liabilities = Liability.where( :created_at => (report.beginning_date..report.ending_date), :campaign_id => campaign_id )
-    campaign = nil
+    campaign = get("#{Rails.application.secrets.auth_api}/campaigns/#{campaign_id}")
     users = get("#{Rails.application.secrets.auth_api}/campaigns/users_with_committee_positions?id=#{campaign_id}")['users']
+    committee = get("#{Rails.application.secrets.auth_api}/committee_by_campaign")
 
-    reportJson = ReportJSON.new(report_state, report, receipts, expenditures, in_kinds, liabilities, campaign, users)
+    reportJson = ReportJSON.new(report_state, report, receipts, expenditures, in_kinds, liabilities, campaign, users, committee)
     reportJson.save(json_filename)
 
     `python3 pdf/fill_pdf.py #{in_filename} #{out_filename} #{json_filename}`
