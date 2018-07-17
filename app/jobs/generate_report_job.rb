@@ -19,7 +19,6 @@ class GenerateReportJob < ApplicationJob
       end
     end
 
-    in_filename = "pdf/#{report_state}/#{report.report_type}.pdf"
     out_filename = "pdf/tmp/#{report.id}.pdf"
     json_filename = "pdf/tmp/#{report.id}.json"
 
@@ -35,7 +34,7 @@ class GenerateReportJob < ApplicationJob
     reportJson = ReportJSON.new(report_state, report, receipts, expenditures, in_kinds, liabilities, campaign, users, committee, last_report)
     reportJson.save(json_filename)
 
-    `python3 pdf/fill_pdf.py #{in_filename} #{out_filename} #{json_filename}`
+    `python3 pdf/fill_pdf.py #{out_filename} #{json_filename}`
 
     bucket = "#{Rails.application.secrets.project_name}-public"
     key = "reports/#{campaign_id}/#{report.id}.pdf"

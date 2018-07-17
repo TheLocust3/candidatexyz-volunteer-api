@@ -3,9 +3,8 @@ import json
 from PyPDF2 import PdfFileWriter, PdfFileReader
 from PyPDF2.generic import NameObject
 
-def update_form_values(infile, outfile, newvals):
+def update_form_values(writer, infile, newvals):
     pdf = PdfFileReader(open(infile, 'rb'))
-    writer = PdfFileWriter()
 
     for i in range(pdf.getNumPages()):
         page = pdf.getPage(i)
@@ -16,9 +15,6 @@ def update_form_values(infile, outfile, newvals):
         except Exception as e:
             print(repr(e))
             writer.addPage(page)
-
-    with open(outfile, 'wb') as out:
-        writer.write(out)
 
 def update_checkbox_values(page, fields):
 
@@ -33,11 +29,17 @@ def update_checkbox_values(page, fields):
 
 # python fill_pdf.py INPUT_FILE_NAME OUTPUT_FILE_NAME JSON_FORM_DATA_FILE_NAME
 if __name__ == '__main__':
-    pdf = sys.argv[1]
-    out = sys.argv[2]
+    outfile = sys.argv[1]
 
-    with open(sys.argv[3]) as json_data:
+    writer = PdfFileWriter()
+
+    with open(sys.argv[2]) as json_data:
         d = json.load(json_data)
 
-        update_form_values(pdf, out, d)
+        for state, value in d.items():
+            for name, pdf in value.items():
+                print(pdf)
+                update_form_values(writer, f"pdf/{state}/{name.split('-')[0]}.pdf", pdf)
 
+    with open(outfile, 'wb') as out:
+        writer.write(out)
