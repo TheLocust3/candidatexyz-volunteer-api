@@ -4,7 +4,7 @@ module StateJSON
   class MAReportJSON
     attr_reader :data
 
-    def initialize(report, receipts, expenditures, in_kinds, liabilities, campaign, users, committee)
+    def initialize(report, receipts, expenditures, in_kinds, liabilities, campaign, users, committee, last_report)
       @data = Hash.new
 
       @report = report
@@ -15,6 +15,7 @@ module StateJSON
       @campaign = campaign
       @users = users
       @committee = committee
+      @last_report = last_report
 
       generate
     end
@@ -76,19 +77,19 @@ module StateJSON
     end
 
     def generate_summary
-      # TODO: ending balance
+      data['textfield']['txtBegBal[0]'] = @last_report.ending_balance.format
 
-      total = Money.new(0)
-      @receipts.each { |receipt| total += receipt.amount }
-      data['textfield']['txtSumReceipts[0]'] = total.format
+      positive = Money.new(0)
+      @receipts.each { |receipt| positive += receipt.amount }
+      data['textfield']['txtSumReceipts[0]'] = positive.format
 
-      # TODO: subtotal
+      data['textfield']['txtSubtotal[0]'] = (positive + @last_report.ending_balance).format
 
-      total = Money.new(0)
-      @expenditures.each { |expenditure| total += expenditure.amount }
-      data['textfield']['txtSumExpenditures[0]'] = total.format
+      negative = Money.new(0)
+      @expenditures.each { |expenditure| negative += expenditure.amount }
+      data['textfield']['txtSumExpenditures[0]'] = negative.format
 
-      # TODO: Ending balance
+      data['textfield']['txtEndBal[0]'] = (positive + @last_report.ending_balance - negative).format
 
       total = Money.new(0)
       @in_kinds.each { |in_kind| total += in_kind.value }

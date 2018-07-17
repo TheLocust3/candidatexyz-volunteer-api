@@ -30,8 +30,9 @@ class GenerateReportJob < ApplicationJob
     campaign = get("#{Rails.application.secrets.auth_api}/campaigns/#{campaign_id}")
     users = get("#{Rails.application.secrets.auth_api}/campaigns/users_with_committee_positions?id=#{campaign_id}")['users']
     committee = get("#{Rails.application.secrets.auth_api}/committee_by_campaign")
+    last_report = Report.order('created_at DESC').where( :official => true, :ending_date => report.beginning_date ).first
 
-    reportJson = ReportJSON.new(report_state, report, receipts, expenditures, in_kinds, liabilities, campaign, users, committee)
+    reportJson = ReportJSON.new(report_state, report, receipts, expenditures, in_kinds, liabilities, campaign, users, committee, last_report)
     reportJson.save(json_filename)
 
     `python3 pdf/fill_pdf.py #{in_filename} #{out_filename} #{json_filename}`
@@ -41,6 +42,7 @@ class GenerateReportJob < ApplicationJob
 
     S3.put_object(bucket: bucket, key: key, body: File.binread(out_filename), acl: 'public-read')
     File.delete(out_filename)
+    File.delete(json_filename)
 
     report.status = 'done'
     report.save

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180716201454) do
+ActiveRecord::Schema.define(version: 20180717143714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -128,6 +128,8 @@ ActiveRecord::Schema.define(version: 20180716201454) do
     t.datetime "updated_at", null: false
     t.string "status", default: "waiting", null: false
     t.boolean "official", default: false, null: false
+    t.integer "ending_balance_cents", default: 0, null: false
+    t.string "ending_balance_currency", default: "USD", null: false
   end
 
   create_table "volunteers", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
