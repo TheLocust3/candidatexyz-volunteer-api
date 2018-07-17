@@ -27,13 +27,18 @@ class ReportJSON
 
   private
   def generate_ending_balance
+    last_balance = Money.new(0)
+    unless @last_report.nil?
+      last_balance = @last_report.ending_balance
+    end
+
     positive = Money.new(0)
     @receipts.each { |receipt| positive += receipt.amount }
 
     negative = Money.new(0)
     @expenditures.each { |expenditure| negative += expenditure.amount }
 
-    @report.ending_balance = Money.new(positive + @last_report.ending_balance - negative)
+    @report.ending_balance = Money.new(positive + last_balance - negative)
     @report.save
   end
 end

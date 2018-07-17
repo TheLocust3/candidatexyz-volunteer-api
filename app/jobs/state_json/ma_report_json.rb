@@ -77,19 +77,24 @@ module StateJSON
     end
 
     def generate_summary
-      data['textfield']['txtBegBal[0]'] = @last_report.ending_balance.format
+      last_balance = Money.new(0)
+      unless @last_report.nil?
+        last_balance = @last_report.ending_balance
+      end
+
+      data['textfield']['txtBegBal[0]'] = last_balance.format
 
       positive = Money.new(0)
       @receipts.each { |receipt| positive += receipt.amount }
       data['textfield']['txtSumReceipts[0]'] = positive.format
 
-      data['textfield']['txtSubtotal[0]'] = (positive + @last_report.ending_balance).format
+      data['textfield']['txtSubtotal[0]'] = (positive + last_balance).format
 
       negative = Money.new(0)
       @expenditures.each { |expenditure| negative += expenditure.amount }
       data['textfield']['txtSumExpenditures[0]'] = negative.format
 
-      data['textfield']['txtEndBal[0]'] = (positive + @last_report.ending_balance - negative).format
+      data['textfield']['txtEndBal[0]'] = (positive + last_balance - negative).format
 
       total = Money.new(0)
       @in_kinds.each { |in_kind| total += in_kind.value }
@@ -99,7 +104,7 @@ module StateJSON
       @liabilities.each { |liability| total += liability.amount }
       data['textfield']['txtSumLiabilities[0]'] = total.format
 
-      # TODO: Name of bank
+      data['textfield']['txtCommBank[0]'] = @committee['bank']
     end
 
     def generate_receipts
