@@ -1,6 +1,6 @@
 require 'json'
 
-class GenerateReportJob < ApplicationJob
+class FinanceReportJob < ApplicationJob
   include CandidateXYZ::Concerns::Request
 
   queue_as :default
@@ -29,7 +29,7 @@ class GenerateReportJob < ApplicationJob
     campaign = get("#{Rails.application.secrets.auth_api}/campaigns/#{campaign_id}")
     users = get("#{Rails.application.secrets.auth_api}/campaigns/users_with_committee_positions?id=#{campaign_id}")['users']
     committee = Committee.where( :campaign_id => campaign_id ).first
-    last_report = Report.order('created_at DESC').where( :official => true, :ending_date => report.beginning_date ).first
+    last_report = Report.order('created_at DESC').where( :report_class => 'finance', :official => true ).select { |r| r.ending_date == report.beginning_date }.first
 
     reportJson = ReportJSON.new(report_state, report, receipts, expenditures, in_kinds, liabilities, campaign, users, committee, last_report)
     reportJson.save(json_filename)

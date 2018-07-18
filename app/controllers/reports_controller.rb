@@ -29,6 +29,7 @@ class ReportsController < ApplicationController
 
     def create
         @report = Report.new(create_params(params))
+        @report.data = params[:data]
         @base_url = base_url
 
         if @report.save
@@ -37,7 +38,7 @@ class ReportsController < ApplicationController
               client: request.headers['client'],
               'access-token': request.headers['access-token']
             }
-            GenerateReportJob.perform_later(auth_headers, @report, @campaign_id)
+            FinanceReportJob.perform_later(auth_headers, @report, @campaign_id)
 
             render 'show'
         else
@@ -56,11 +57,11 @@ class ReportsController < ApplicationController
 
     private
     def create_params(params)
-        params.permit(:report_type, :beginning_date, :ending_date, :official, :campaign_id)
+        params.permit(:report_type, :official, :report_class, :campaign_id)
     end
 
     def update_params(params)
-        params.permit(:report_type, :beginning_date, :ending_date)
+        params.permit(:report_type)
     end
 
     def base_url
