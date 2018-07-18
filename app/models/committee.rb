@@ -17,6 +17,10 @@ class Committee < ApplicationRecord
 
   validates :campaign_id, presence: true
 
+  def report
+    Report.all.select {|report| report.data['committee_id'] == id }.first
+  end
+
   private
   def sanitize_phone_number
     unless self.phone_number.nil?

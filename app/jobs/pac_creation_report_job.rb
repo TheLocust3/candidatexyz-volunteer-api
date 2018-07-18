@@ -31,12 +31,12 @@ class PACCreationReportJob < ApplicationJob
 
     `python3 pdf/fill_pdf.py #{out_filename} #{json_filename}`
 
-    # bucket = "#{Rails.application.secrets.project_name}-public"
-    # key = "reports/#{campaign_id}/#{report.id}.pdf"
+    bucket = "#{Rails.application.secrets.project_name}-public"
+    key = "reports/#{campaign_id}/#{report.id}.pdf"
 
-    # S3.put_object(bucket: bucket, key: key, body: File.binread(out_filename), acl: 'public-read')
-    # File.delete(out_filename)
-    # File.delete(json_filename)
+    S3.put_object(bucket: bucket, key: key, body: File.binread(out_filename), acl: 'public-read')
+    File.delete(out_filename)
+    File.delete(json_filename)
 
     report.status = 'done'
     report.save
