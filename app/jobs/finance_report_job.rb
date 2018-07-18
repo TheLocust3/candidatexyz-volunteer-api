@@ -31,7 +31,7 @@ class FinanceReportJob < ApplicationJob
     committee = Committee.where( :campaign_id => campaign_id ).first
     last_report = Report.order('created_at DESC').where( :report_class => 'finance', :official => true ).select { |r| r.ending_date == report.beginning_date }.first
 
-    reportJson = ReportJSON.new(report_state, report, receipts, expenditures, in_kinds, liabilities, campaign, users, committee, last_report)
+    reportJson = FinanceReportJSON.new(report_state, report, receipts, expenditures, in_kinds, liabilities, campaign, users, committee, last_report)
     reportJson.save(json_filename)
 
     `python3 pdf/fill_pdf.py #{out_filename} #{json_filename}`

@@ -1,6 +1,6 @@
 require 'json'
 
-module StateJSON
+module FinanceJSON
   class MAReportJSON
     @@PAGES = 7
     @@RECEIPTS = 25
@@ -100,7 +100,7 @@ module StateJSON
     def generate_summary
       last_balance = Money.new(0)
       unless @last_report.nil?
-        last_balance = @last_report.ending_balance
+        last_balance = Money.new(@last_report.data['ending_balance'])
       end
 
       data_main['textfield']['txtBegBal[0]'] = last_balance.format

@@ -12,12 +12,9 @@ class Report < ApplicationRecord
 
   validates :report_type, presence: true
   validates :report_class, presence: true
-  validates :data, presence: true
   validates :status, presence: true
 
   validate :report_class_specific
-
-  monetize :ending_balance_cents
 
   def self.REPORT_TYPES
     @@REPORT_TYPES

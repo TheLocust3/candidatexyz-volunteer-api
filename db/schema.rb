@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180718132933) do
+ActiveRecord::Schema.define(version: 20180718140850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,8 +142,6 @@ ActiveRecord::Schema.define(version: 20180718132933) do
     t.datetime "updated_at", null: false
     t.string "status", default: "waiting", null: false
     t.boolean "official", default: false, null: false
-    t.integer "ending_balance_cents", default: 0, null: false
-    t.string "ending_balance_currency", default: "USD", null: false
     t.string "report_class", default: "finance", null: false
     t.json "data", default: {}, null: false
   end

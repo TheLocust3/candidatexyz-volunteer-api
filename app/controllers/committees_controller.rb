@@ -43,7 +43,20 @@ class CommitteesController < ApplicationController
         @committee = Committee.new(parameters)
 
         if @committee.save
-            render 'show'
+            report = Report.new( :report_type => 'cpf_m101_18', :official => true, :report_class => 'pac', :campaign_id => @campaign_id )
+
+            if report.save
+                auth_headers = {
+                  uid: request.headers['uid'],
+                  client: request.headers['client'],
+                  'access-token': request.headers['access-token']
+                }
+                PACCreationReportJob.perform_later(auth_headers, report, @campaign_id)
+
+                render 'show'
+            else
+                render_errors(report)
+            end
         else
             render_errors(@committee)
         end

@@ -1,6 +1,6 @@
 require 'json'
 
-class ReportJSON
+class FinanceReportJSON
   attr_reader :data
 
   def initialize(state, report, receipts, expenditures, in_kinds, liabilities, campaign, users, committee, last_report)
@@ -15,7 +15,7 @@ class ReportJSON
     @last_report = last_report
 
     if state.to_s == 'ma'
-      @data = StateJSON::MAReportJSON.new(report, receipts, expenditures, in_kinds, liabilities, campaign, users, committee, last_report).data
+      @data = FinanceJSON::MAReportJSON.new(report, receipts, expenditures, in_kinds, liabilities, campaign, users, committee, last_report).data
     end
   end
 
@@ -29,7 +29,7 @@ class ReportJSON
   def generate_ending_balance
     last_balance = Money.new(0)
     unless @last_report.nil?
-      last_balance = @last_report.ending_balance
+      last_balance = Money.new(@last_report.data['ending_balance'])
     end
 
     positive = Money.new(0)
@@ -38,7 +38,7 @@ class ReportJSON
     negative = Money.new(0)
     @expenditures.each { |expenditure| negative += expenditure.amount }
 
-    @report.ending_balance = Money.new(positive + last_balance - negative)
+    @report.data['ending_balance'] = Money.new(positive + last_balance - negative).to_f
     @report.save
   end
 end

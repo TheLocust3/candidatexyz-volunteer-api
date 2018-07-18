@@ -26,10 +26,10 @@ class PACCreationReportJob < ApplicationJob
     users = get("#{Rails.application.secrets.auth_api}/campaigns/users_with_committee_positions?id=#{campaign_id}")['users']
     committee = Committee.where( :campaign_id => campaign_id ).first
 
-    # reportJson = ReportJSON.new(report_state, report, receipts, expenditures, in_kinds, liabilities, campaign, users, committee, last_report)
-    # reportJson.save(json_filename)
+    reportJson = PACReportJSON.new(report_state, report, campaign, users, committee)
+    reportJson.save(json_filename)
 
-    # `python3 pdf/fill_pdf.py #{out_filename} #{json_filename}`
+    `python3 pdf/fill_pdf.py #{out_filename} #{json_filename}`
 
     # bucket = "#{Rails.application.secrets.project_name}-public"
     # key = "reports/#{campaign_id}/#{report.id}.pdf"
