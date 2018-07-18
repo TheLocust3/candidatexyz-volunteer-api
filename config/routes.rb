@@ -24,4 +24,7 @@ Rails.application.routes.draw do
 
   resources :reports, defaults: { format: :json }
   get 'report_types' => 'reports#report_types'
+
+  resources :committees, defaults: { format: :json }
+  get 'committee_by_campaign' => 'committees#get_campaign_committee', defaults: { format: :json }
 end
