@@ -42,6 +42,7 @@ module PacJSON
 
       data_main['textfield']['txtCandEmail[0]'] = candidate['email']
       data_main['textfield']['txtCandPhone[0]'] = candidate['phoneNumber']
+      data_main['textfield']['txtParty[0]'] = candidate['party']
 
       data_main['textfield']['txtOffice[0]'] = @committee.office
       data_main['textfield']['txtDistrict[0]'] = @committee.district
