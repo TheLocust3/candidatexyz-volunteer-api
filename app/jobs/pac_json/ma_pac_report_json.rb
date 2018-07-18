@@ -39,6 +39,7 @@ module PacJSON
       data_main['textfield']['txtCandAddress[0]'] = candidate['address']
       data_main['textfield']['txtCandCity[0]'] = candidate['city']
       data_main['textfield']['txtCandState[0]'] = candidate['state']
+      data_main['textfield']['txtCandZip[0]'] = candidate['zipcode']
 
       data_main['textfield']['txtCandEmail[0]'] = candidate['email']
       data_main['textfield']['txtCandPhone[0]'] = candidate['phoneNumber']
@@ -65,6 +66,7 @@ module PacJSON
       data_main['textfield']['txtChairAddress[0]'] = chair['address']
       data_main['textfield']['txtChairCity[0]'] = chair['city']
       data_main['textfield']['txtChairState[0]'] = chair['state']
+      data_main['textfield']['txtChairZip[0]'] = chair['zipcode']
 
       data_main['textfield']['txtChairPhone[0]'] = chair['phoneNumber']
     end
@@ -76,6 +78,7 @@ module PacJSON
       data_main['textfield']['txtTreasAddress[0]'] = treasurer['address']
       data_main['textfield']['txtTreasCity[0]'] = treasurer['city']
       data_main['textfield']['txtTreasState[0]'] = treasurer['state']
+      data_main['textfield']['txtTreasZip[0]'] = treasurer['zipcode']
 
       data_main['textfield']['txtTreasPhone[0]'] = treasurer['phoneNumber']
       data_main['textfield']['txtChairPhone[1]'] = treasurer['email']
