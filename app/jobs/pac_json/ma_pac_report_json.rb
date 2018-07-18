@@ -29,6 +29,7 @@ module PacJSON
       generate_committee
       generate_chair
       generate_treasurer
+      generate_other
     end
 
     def generate_candidate
@@ -82,6 +83,34 @@ module PacJSON
 
       data_main['textfield']['txtTreasPhone[0]'] = treasurer['phoneNumber']
       data_main['textfield']['txtChairPhone[1]'] = treasurer['email']
+    end
+
+    def generate_other
+      others = @users.select { |user| !(['Chair', 'Candidate', 'Treasurer'].include?(user['position']))  }
+
+      if others.length == 0
+        return
+      end
+
+      data_main['textfield']['txtOtherOfficer0Name[0]'] = "#{others[0]['firstName']} #{others[0]['lastName']} (#{others[0]['position']})"
+      data_main['textfield']['txOtherOfficer0Address[0]'] = others[0]['address']
+      data_main['textfield']['txtOtherOfficer0City[0]'] = others[0]['city']
+      data_main['textfield']['txtOtherOfficer0State[0]'] = others[0]['state']
+      data_main['textfield']['txtOtherOfficer0Zip[0]'] = others[0]['zipcode']
+
+      data_main['textfield']['txtOtherOfficer0Phone[0]'] = others[0]['phoneNumber']
+      
+      if others.length == 1
+        return
+      end
+
+      data_main['textfield']['txtOtherOfficer1Name[0]'] = "#{others[1]['firstName']} #{others[1]['lastName']} (#{others[1]['position']})"
+      data_main['textfield']['txOtherOfficer1Address[0]'] = others[1]['address']
+      data_main['textfield']['txtOtherOfficer1City[0]'] = others[1]['city']
+      data_main['textfield']['txtOtherOfficer1State[0]'] = others[1]['state']
+      data_main['textfield']['txtOtherOfficer1Zip[0]'] = others[1]['zipcode']
+
+      data_main['textfield']['txtOtherOfficer1Phone[0]'] = others[1]['phoneNumber']
     end
   end
 end
