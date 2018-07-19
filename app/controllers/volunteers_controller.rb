@@ -55,6 +55,12 @@ class VolunteersController < ApplicationController
         render_success
     end
 
+    def export
+        volunteers = Volunteer.where( :campaign_id => @campaign_id )
+
+        send_data(volunteers.to_csv, type: 'text/csv', disposition: 'inline')
+    end
+
     private
     def create_params(params)
         params.permit(:email, :phone_number, :first_name, :last_name, :address, :zipcode, :city, :state, :help_blurb, :campaign_id)

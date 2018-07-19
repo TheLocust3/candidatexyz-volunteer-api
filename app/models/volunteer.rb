@@ -11,6 +11,10 @@ class Volunteer < ApplicationRecord
 
   validates :phone_number, number: true
 
+  def self.to_csv
+    super(%w{id first_name last_name email phone_number address city state zipcode help_blurb created_at})
+  end
+
   def save
     self.contact = Contact.new( campaign_id: self.campaign_id, email: self.email, first_name: self.first_name, last_name: self.last_name, zipcode: self.zipcode, phone_number: self.phone_number )
     

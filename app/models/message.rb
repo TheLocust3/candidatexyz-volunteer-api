@@ -5,5 +5,8 @@ class Message < ApplicationRecord
   validates :email, presence: true, email: true
   validates :subject, presence: true
   validates :message, presence: true
+
+  def self.to_csv
+    super(%w{id first_name last_name email subject message created_at})
   end
-  
+end

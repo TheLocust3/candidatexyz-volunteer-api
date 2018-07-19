@@ -46,6 +46,12 @@ class ContactsController < ApplicationController
         render_success
     end
 
+    def export
+        contacts = Contact.where( :campaign_id => @campaign_id )
+
+        send_data(contacts.to_csv, type: 'text/csv', disposition: 'inline')
+    end
+
     private
     def create_params(params)
         params.permit(:email, :first_name, :last_name, :zipcode, :phone_number, :campaign_id)

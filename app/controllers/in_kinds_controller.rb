@@ -46,6 +46,12 @@ class InKindsController < ApplicationController
         render_success
     end
 
+    def export
+        in_kinds = InKind.where( :campaign_id => @campaign_id )
+
+        send_data(in_kinds.to_csv, type: 'text/csv', disposition: 'inline')
+    end
+
     private
     def create_params(params)
         params.permit(:from_whom, :description, :address, :city, :state, :country, :date_received, :value, :email, :phone_number, :campaign_id)

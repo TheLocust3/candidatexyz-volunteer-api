@@ -19,6 +19,10 @@ class InKind < ApplicationRecord
 
   monetize :value_cents
 
+  def self.to_csv
+    super(%w{id from_whom email phone_number description address city state country value_cents date_received created_at})
+  end
+
   private
   def sanitize_phone_number
     unless self.phone_number.nil?

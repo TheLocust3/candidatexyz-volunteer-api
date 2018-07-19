@@ -46,6 +46,12 @@ class ReceiptsController < ApplicationController
         render_success
     end
 
+    def export
+        receipts = Receipt.where( :campaign_id => @campaign_id )
+
+        send_data(receipts.to_csv, type: 'text/csv', disposition: 'inline')
+    end
+
     private
     def create_params(params)
         params.permit(:name, :address, :city, :state, :country, :date_received, :occupation, :employer, :amount, :email, :phone_number, :receipt_type, :campaign_id)

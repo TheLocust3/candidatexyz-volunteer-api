@@ -13,4 +13,8 @@ class Expenditure < ApplicationRecord
   validates :amount, presence: true
 
   monetize :amount_cents
+
+  def self.to_csv
+    super(%w{id paid_to purpose address city state country amount_cents date_paid created_at})
+  end
 end

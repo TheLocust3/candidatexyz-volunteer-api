@@ -6,6 +6,10 @@ class Contact < ApplicationRecord
   validates :zipcode, zipcode: true
   validates :phone_number, number: true
   
+  def self.to_csv
+    super(%w{id first_name last_name email phone_number zipcode created_at})
+  end
+
   private
   def sanitize_phone_number
     unless self.phone_number.nil?
@@ -13,4 +17,3 @@ class Contact < ApplicationRecord
     end
   end
 end
-  

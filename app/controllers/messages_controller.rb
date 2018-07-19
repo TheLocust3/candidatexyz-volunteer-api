@@ -36,6 +36,12 @@ class MessagesController < ApplicationController
         render_success
     end
 
+    def export
+        messages = Message.where( :campaign_id => @campaign_id )
+
+        send_data(messages.to_csv, type: 'text/csv', disposition: 'inline')
+    end
+
     private
     def create_params(params)
         params.permit(:first_name, :last_name, :email, :subject, :message, :campaign_id)

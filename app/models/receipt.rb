@@ -16,6 +16,10 @@ class Receipt < ApplicationRecord
 
   monetize :amount_cents
 
+  def self.to_csv
+    super(%w{id name email phone_number address city state country amount_cents occupation employer created_at})
+  end
+
   private
   def sanitize_phone_number
     unless self.phone_number.nil?

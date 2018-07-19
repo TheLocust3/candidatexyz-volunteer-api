@@ -46,6 +46,12 @@ class ExpendituresController < ApplicationController
         render_success
     end
 
+    def export
+        expenditures = Expenditure.where( :campaign_id => @campaign_id )
+
+        send_data(expenditures.to_csv, type: 'text/csv', disposition: 'inline')
+    end
+
     private
     def create_params(params)
         params.permit(:paid_to, :purpose, :address, :city, :state, :country, :date_paid, :amount, :campaign_id)

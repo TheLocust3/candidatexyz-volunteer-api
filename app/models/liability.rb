@@ -13,5 +13,8 @@ class Liability < ApplicationRecord
   validates :amount, presence: true
 
   monetize :amount_cents
+
+  def self.to_csv
+    super(%w{id to_whom purpose address city state country amount_cents date_incurred created_at})
+  end
 end
-  
