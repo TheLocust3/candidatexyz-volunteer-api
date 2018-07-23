@@ -23,7 +23,7 @@ class PACCreationReportJob < ApplicationJob
     json_filename = "pdf/tmp/#{report.id}.json"
 
     campaign = get("#{Rails.application.secrets.auth_api}/campaigns/#{campaign_id}")
-    users = get("#{Rails.application.secrets.auth_api}/campaigns/users_with_committee_positions?id=#{campaign_id}")['users']
+    users = get("#{Rails.application.secrets.auth_api}/users/users_with_committee_positions?campaign_id=#{campaign_id}")['users']
     committee = Committee.where( :campaign_id => campaign_id ).first
 
     reportJson = PACReportJSON.new(report_state, report, campaign, users, committee)
