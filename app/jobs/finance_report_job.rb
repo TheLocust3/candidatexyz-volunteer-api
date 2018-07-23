@@ -27,7 +27,7 @@ class FinanceReportJob < ApplicationJob
     in_kinds = InKind.where( :created_at => (report.beginning_date..report.ending_date), :campaign_id => campaign_id )
     liabilities = Liability.where( :created_at => (report.beginning_date..report.ending_date), :campaign_id => campaign_id )
     campaign = get("#{Rails.application.secrets.auth_api}/campaigns/#{campaign_id}")
-    users = get("#{Rails.application.secrets.auth_api}/campaigns/users_with_committee_positions?id=#{campaign_id}")['users']
+    users = get("#{Rails.application.secrets.auth_api}/users/users_with_committee_positions?campaign_id=#{campaign_id}")['users']
     committee = Committee.where( :campaign_id => campaign_id ).first
     last_report = Report.order('created_at DESC').where( :report_class => 'finance', :official => true ).select { |r| r.ending_date == report.beginning_date }.first
 
