@@ -45,7 +45,7 @@ class NotificationsController < ApplicationController
     end
 
     def destroy
-        @notification = Notification.where( :id => params[:id], :campaign_id => @campaign_id, :user_id => @current_user.id ).first
+        @notification = Notification.where( :id => params[:id], :campaign_id => @campaign_id, :user_id => [@current_user.id, ''] ).first
         @notification.destroy
 
         render_success
