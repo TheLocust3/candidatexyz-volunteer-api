@@ -32,6 +32,10 @@ class VolunteersController < ApplicationController
         @volunteer = Volunteer.new(create_params(params))
 
         if @volunteer.save
+            unless params[:no_notify]
+                Notification.create!( :title => 'New Volunteer', :body => 'A new volunteer has signed up!', :link => "/communication/volunteers/#{@volunteer.id}", :campaign_id => params[:campaign_id] )
+            end
+
             render 'show'
         else
             render_errors(@volunteer)

@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 20180724134348) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "images", force: :cascade do |t|
+  create_table "images", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string "identifier", null: false
     t.string "url", null: false
     t.datetime "created_at", null: false
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 20180724134348) do
     t.string "phone_number"
   end
 
-  create_table "liabilities", force: :cascade do |t|
+  create_table "liabilities", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string "to_whom", null: false
     t.string "purpose", null: false
     t.string "address", null: false
@@ -119,14 +119,15 @@ ActiveRecord::Schema.define(version: 20180724134348) do
   create_table "notifications", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string "title", null: false
     t.string "body", null: false
+    t.string "link", null: false
     t.boolean "read", default: false
-    t.string "user_id", null: false
+    t.string "user_id", default: ""
     t.string "campaign_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "receipts", force: :cascade do |t|
+  create_table "receipts", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string "name", null: false
     t.string "address", null: false
     t.string "city", null: false
@@ -145,7 +146,7 @@ ActiveRecord::Schema.define(version: 20180724134348) do
     t.string "country"
   end
 
-  create_table "reports", force: :cascade do |t|
+  create_table "reports", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string "report_type", null: false
     t.string "campaign_id", null: false
     t.datetime "created_at", null: false

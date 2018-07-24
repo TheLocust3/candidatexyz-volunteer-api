@@ -5,13 +5,13 @@ class NotificationsController < ApplicationController
     before_action :authenticate_superuser, only: [ :create ]
 
     def index
-        @notifications = Notification.where( :campaign_id => @campaign_id, :user_id => @current_user['id'] )
+        @notifications = Notification.where( :campaign_id => @campaign_id, :user_id => [@current_user.id, ''] )
 
         render
     end
 
     def show
-        @notification = Notification.where( :id => params[:id], :campaign_id => @campaign_id, :user_id => @current_user['id'] ).first
+        @notification = Notification.where( :id => params[:id], :campaign_id => @campaign_id, :user_id => @current_user.id ).first
         
         if @notification.nil?
             not_found
@@ -31,7 +31,7 @@ class NotificationsController < ApplicationController
     end
 
     def update
-        @notification = Notification.where( :id => params[:id], :campaign_id => @campaign_id, :user_id => @current_user['id'] ).first
+        @notification = Notification.where( :id => params[:id], :campaign_id => @campaign_id, :user_id => @current_user.id ).first
 
         if @notification.update(update_params(params))
             render 'show'
@@ -41,7 +41,7 @@ class NotificationsController < ApplicationController
     end
 
     def destroy
-        @notification = Notification.where( :id => params[:id], :campaign_id => @campaign_id, :user_id => @current_user['id'] ).first
+        @notification = Notification.where( :id => params[:id], :campaign_id => @campaign_id, :user_id => @current_user.id ).first
         @notification.destroy
 
         render_success
@@ -49,7 +49,7 @@ class NotificationsController < ApplicationController
 
     private
     def create_params(params)
-        params.permit(:title, :body, :campaign_id, :user_id)
+        params.permit(:title, :body, :link, :campaign_id, :user_id)
     end
 
     def update_params(params)

@@ -23,6 +23,10 @@ class ContactsController < ApplicationController
         @contact = Contact.new(create_params(params))
 
         if @contact.save
+            unless params[:no_notify]
+                Notification.create!( :title => 'New Sign Up', :body => 'A new person has signed up!', :link => "/communication/sign-ups/#{@contact.id}", :campaign_id => params[:campaign_id] )
+            end
+
             render 'show'
         else
             render_errors(@contact)
