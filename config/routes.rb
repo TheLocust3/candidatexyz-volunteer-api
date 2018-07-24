@@ -34,4 +34,6 @@ Rails.application.routes.draw do
 
   resources :committees, defaults: { format: :json }
   get 'committee_by_campaign' => 'committees#get_campaign_committee', defaults: { format: :json }
+
+  resources :notifications, defaults: { format: :json }
 end
