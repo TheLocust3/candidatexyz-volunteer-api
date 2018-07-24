@@ -33,6 +33,8 @@ class ReportsController < ApplicationController
         @base_url = base_url
 
         if @report.save
+            Notification.create!( :title => 'Campaign Finance report is being processed', :body => 'A Campaign Finance report is being generated', :link => "/finance/reports/#{@report.id}", :campaign_id => @campaign_id )
+            
             auth_headers = {
               uid: request.headers['uid'],
               client: request.headers['client'],

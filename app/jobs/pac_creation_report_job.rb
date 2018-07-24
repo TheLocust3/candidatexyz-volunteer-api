@@ -38,6 +38,8 @@ class PACCreationReportJob < ApplicationJob
     File.delete(out_filename)
     File.delete(json_filename)
 
+    Notification.create!( :title => 'Committee formation report has been generated', :body => 'Committee formation documents can now be viewed', :link => "/finance/reports/#{report.id}", :campaign_id => campaign_id )
+
     report.status = 'done'
     report.save
   end

@@ -50,6 +50,8 @@ class CommitteesController < ApplicationController
             report = Report.new( :report_type => 'cpf_m101_18', :official => true, :report_class => 'pac', :campaign_id => @campaign_id, :data => { :committee_id => @committee.id } )
 
             if report.save
+                Notification.create!( :title => 'Committee formation report being processed', :body => 'Committee formation documents are being generated', :link => "/finance/reports/#{report.id}", :campaign_id => @campaign_id )
+
                 auth_headers = {
                   uid: request.headers['uid'],
                   client: request.headers['client'],
