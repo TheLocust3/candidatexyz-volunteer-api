@@ -2,7 +2,6 @@ class NotificationsController < ApplicationController
     include CandidateXYZ::Concerns::Authenticatable
     before_action :authenticate
     before_action :authenticate_campaign_id
-    before_action :authenticate_superuser, only: [ :create ]
 
     def index
         @notifications = Notification.where( :campaign_id => @campaign_id, :user_id => [@current_user.id, ''] )
@@ -22,6 +21,11 @@ class NotificationsController < ApplicationController
 
     def create
         @notification = Notification.new(create_params(params))
+        if @notification.campaign_id != @campaign_id && !@current_user.superuser
+            render :json => {}, :status => 401
+
+            return
+        end
 
         if @notification.save
             render 'show'
