@@ -6,10 +6,27 @@ module Rules
         attr_reader :rules
 
         def initialize
+            rules = Hash.new
 
+            generate_rules
         end
 
+        private
+        def generate_rules
+            Dir.chdir('/destination_directory')
+            Dir.glob('*').each { |state|
+                if File.directory? state
+                    rules[state] = Hash.new
 
+                    Dir.glob('*').each { |type|
+                        rules[state][type]['donation'] = DonationRules.new(state, type)
+                        rules[state][type]['receipt'] = ReceiptRules.new(state, type)
+                        rules[state][type]['in_kind'] = InKindRules.new(state, type)
+                        rules[state][type]['expenditure'] = ExpenditureRules.new(state, type)
+                    }
+                end
+            }
+        end
     end
 
     class Rules

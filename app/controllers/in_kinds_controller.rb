@@ -54,10 +54,10 @@ class InKindsController < ApplicationController
 
     private
     def create_params(params)
-        params.permit(:from_whom, :description, :address, :city, :state, :country, :date_received, :value, :email, :phone_number, :campaign_id)
+        params.permit(:from_whom, :description, :address, :city, :state, :country, :date_received, :value, :email, :phone_number, :person, :campaign_id)
     end
 
     def update_params(params)
-        params.permit(:from_whom, :description, :address, :city, :state, :country, :date_received, :value, :email, :phone_number)
+        params.permit(:from_whom, :description, :address, :city, :state, :country, :date_received, :value, :email, :phone_number, :person)
     end
 end

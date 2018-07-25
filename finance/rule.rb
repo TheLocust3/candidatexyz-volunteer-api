@@ -12,14 +12,18 @@ module Rules
             if object.nil?
                 puts "ERROR: Object isn't found in data array!"
 
-                return ["Object isn't found in data array!"]
+                return 0
+            end
+
+            unless run_extra_checks
+                return -1
             end
 
             attribute = object.send(data[raw_rule['attribute']])
             if attribute.nil?
                 puts "ERROR: Attribute isn't found in data array!"
 
-                return ["Attribute isn't found in data array!"]
+                return 0
             end
 
             if eval_threshold(attribute, raw_rule['threshold'])
@@ -32,6 +36,19 @@ module Rules
         end
 
         private
+        def run_extra_checks
+            keys = raw_rule.keys
+            keys = keys - ['type', 'attribute', 'threshold']
+
+            for key in keys
+                if object.send(key) != raw_rule[key]
+                    return false
+                end
+            end
+
+            return true
+        end
+
         def eval_threshold(attribute, threshold)
             method, value = threshold.split(' ')
 
