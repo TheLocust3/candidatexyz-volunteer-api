@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rules>
+    <rule attribute='amount' type='expenditure' threshold='<= 50'>
+        <!-- TODO: FORCE THIS TO BE CASH -->
+        <hide />
+    </rule>
+
+    <rule attribute='amount' to='candidate' threshold='> 100' time='year'>
+        <stop />
+    </rule>
+</rules>

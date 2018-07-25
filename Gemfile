@@ -28,3 +28,5 @@ gem 'aws-sdk'
 gem 'candidatexyz-common', :github => 'TheLocust3/candidatexyz-common', :branch => 'master'
 
 gem 'money-rails', '~> 1'
+
+gem 'nokogiri'
