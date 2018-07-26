@@ -69,9 +69,9 @@ module Rules
 
         # donation is a Receipt or InKind
         def check(donation, donor)
-            raw_rules.map do |rule|
+            raw_rules.map { |rule|
                 rule.check({ donation: donation, donor: donor })
-            end
+            }.flatten
         end
     end
 
@@ -82,9 +82,9 @@ module Rules
         end
 
         def check(receipt)
-            raw_rules.map do |rule|
+            raw_rules.map { |rule|
                 rule.check({ receipt: receipt })
-            end
+            }.flatten
         end
     end
     
@@ -95,9 +95,9 @@ module Rules
         end
 
         def check(in_kind)
-            raw_rules.map do |rule|
+            raw_rules.map { |rule|
                 rule.check({ in_kind: in_kind })
-            end
+            }.flatten
         end
     end
 
@@ -108,9 +108,9 @@ module Rules
         end
 
         def check(expenditure)
-            raw_rules.map do |rule|
+            raw_rules.map { |rule|
                 rule.check({ expenditure: expenditure })
-            end
+            }.flatten
         end
     end
 end

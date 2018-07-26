@@ -6,6 +6,6 @@
     </rule>
 
     <rule attribute='amount' to='candidate' threshold='&gt; 100' time='year'>
-        <stop />
+        <stop message='Cannot donate more than $100 to a candidate' />
     </rule>
 </rules>

@@ -13,8 +13,8 @@ class Rule
             return 0
         end
 
-        unless run_extra_checks
-            return -1
+        unless run_extra_checks(object)
+            return []
         end
 
         attribute = object.send(raw_rule['attribute'])
@@ -24,9 +24,9 @@ class Rule
             return 0
         end
 
-        if eval_threshold(attribute, raw_rule['threshold'])
+        if eval_threshold(attribute, raw_rule['attribute'], raw_rule['threshold'])
             return raw_rule.children.select { |child| child.element? }.map do |child|
-                "Violated #{raw_rule['type']} is #{raw_rule['threshold']} and #{RuleAction.create(child).execute}"
+                RuleAction.create(child).execute
             end
         end
 
@@ -34,12 +34,13 @@ class Rule
     end
 
     private
-    def run_extra_checks
+    def run_extra_checks(object)
         keys = raw_rule.keys
         keys = keys - ['type', 'attribute', 'threshold']
 
         for key in keys
-            if object.send(key) != raw_rule[key]
+            # time has some extra logic to it that I haven't written
+            if key != 'time' && object.send(key) != raw_rule[key]
                 return false
             end
         end
@@ -47,9 +48,13 @@ class Rule
         return true
     end
 
-    def eval_threshold(attribute, threshold)
+    def eval_threshold(attribute, attribute_type, threshold)
         method, value = threshold.split(' ')
 
-        return !attribute.send(method, Money.new(value.to_i))
+        if attribute_type == 'amount'
+            return attribute.send(method, Money.new(value.to_i * 100)) # in cents
+        end
+
+        return attribute.send(method, value.to_i)
     end
 end

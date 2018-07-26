@@ -30,28 +30,28 @@ class HideAction < RuleAction
     end
 
     def execute
-        return 'must be hidden'
+        return { action: 'hide' }
     end
 end
 
 class StopAction < RuleAction
 
-    def initialize
+    def initialize(raw_action)
         super(raw_action)
     end
 
     def execute
-        return 'must be stopped'
+        return { action: 'stop', message: raw_action['message'] }
     end
 end
 
 class RequireAction < RuleAction
 
-    def initialize
+    def initialize(raw_action)
         super(raw_action)
     end
 
     def execute
-        return "#{raw_action['attribute']} is required"
+        return { action: 'require', attribute: raw_action['attribute'], message: raw_action['message'] }
     end
 end

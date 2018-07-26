@@ -1,32 +1,32 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <rules>
     <rule attribute='amount' type='donor' person='individual' threshold='&gt; 200' time='year'>
-        <require attribute='occupation' />
-        <require attribute='employer' />
+        <require attribute='occupation' message='is required for donations over $200' />
+        <require attribute='employer' message='is required for donations over $200' />
     </rule>
 
     <rule attribute='amount' type='donor' person='individual' threshold='&gt; 1000' time='year'>
-        <stop />
+        <stop message='Individuals cannot donate more than $1000' />
     </rule>
 
     <rule attribute='amount' type='donor' person='pac' threshold='&gt; 500' time='year'>
-        <stop />
+        <stop message='Political Action Committees cannot donate more than $500' />
     </rule>
 
     <rule attribute='amount' type='donor' person='local_party_pac' threshold='&gt; 1000' time='year'>
-        <stop />
+        <stop message='Local political parties cannot donate more than $1000' />
     </rule>
 
     <rule attribute='amount' type='donor' person='lobbyist' threshold='&gt; 200' time='year'>
-        <stop />
+        <stop message='Lobbyists cannot donate more than $200' />
     </rule>
 
     <rule attribute='amount' type='donor' person='company' threshold='&gt; 0'>
-        <stop />
+        <stop message='Companies cannot donate any money' />
     </rule>
 
-    <rule attribute='amount' type='donor' person='union'>
-        <require attribute='principle_officers_names'>
-        <require attribute='principle_officers_addresses'>
+    <rule attribute='amount' type='donor' person='union' threshold='&gt; 0'>
+        <require attribute='principle_officers_names' message='of union principle officers are required' >
+        <require attribute='principle_officers_addresses' message='of union principle officers are required'>
     </rule>
 </rules>
