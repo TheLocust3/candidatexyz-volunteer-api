@@ -30,6 +30,7 @@ module Rules
                         @rules[state_name][type_name]['receipt'] = ReceiptRules.new(state_name, type_name)
                         @rules[state_name][type_name]['in_kind'] = InKindRules.new(state_name, type_name)
                         @rules[state_name][type_name]['expenditure'] = ExpenditureRules.new(state_name, type_name)
+                        @rules[state_name][type_name]['liability'] = LiabilityRules.new(state_name, type_name)
                     end
                 end
             end
@@ -81,9 +82,9 @@ module Rules
             super(state, type, 'receipt')
         end
 
-        def check(receipt)
+        def check(receipt, donor)
             raw_rules.map { |rule|
-                rule.check({ receipt: receipt })
+                rule.check({ receipt: receipt, donor: donor })
             }.flatten
         end
     end
@@ -94,9 +95,9 @@ module Rules
             super(state, type, 'in_kind')
         end
 
-        def check(in_kind)
+        def check(in_kind, donor)
             raw_rules.map { |rule|
-                rule.check({ in_kind: in_kind })
+                rule.check({ in_kind: in_kind, donor: donor })
             }.flatten
         end
     end
@@ -110,6 +111,19 @@ module Rules
         def check(expenditure)
             raw_rules.map { |rule|
                 rule.check({ expenditure: expenditure })
+            }.flatten
+        end
+    end
+
+    class LiabilityRules < Rules
+
+        def initialize(state, type)
+            super(state, type, 'liability')
+        end
+
+        def check(liability)
+            raw_rules.map { |rule|
+                rule.check({ liability: liability })
             }.flatten
         end
     end

@@ -19,6 +19,6 @@ module Rulable
   end
 
   def handle_stop(rule, record)
-    errors.add('', rule[:message])
+    errors.add(rule[:action], rule[:message])
   end
 end

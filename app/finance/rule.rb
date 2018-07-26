@@ -10,7 +10,7 @@ class Rule
         if object.nil?
             puts "ERROR: Object isn't found in data array!"
 
-            return 0
+            return []
         end
 
         unless run_extra_checks(object)
@@ -21,7 +21,7 @@ class Rule
         if attribute.nil?
             puts "ERROR: Attribute isn't found in data array!"
 
-            return 0
+            return []
         end
 
         if eval_threshold(attribute, raw_rule['attribute'], raw_rule['threshold'])
@@ -40,7 +40,7 @@ class Rule
 
         for key in keys
             # time has some extra logic to it that I haven't written
-            if key != 'time' && object.send(key) != raw_rule[key]
+            if key != 'time' && key != 'to_person' && object.send(key) != raw_rule[key]
                 return false
             end
         end
@@ -51,7 +51,7 @@ class Rule
     def eval_threshold(attribute, attribute_type, threshold)
         method, value = threshold.split(' ')
 
-        if attribute_type == 'amount'
+        if attribute_type == 'amount' || attribute_type == 'value'
             return attribute.send(method, Money.new(value.to_i * 100)) # in cents
         end
 

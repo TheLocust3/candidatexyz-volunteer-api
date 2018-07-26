@@ -3,4 +3,9 @@
     <rule attribute='amount' type='receipt' threshold='&lt;= 50'>
         <hide />
     </rule>
+
+    <rule attribute='amount' type='donor' person='individual' threshold='&gt; 200' time='year'>
+        <require attribute='occupation' message='is required for donations over $200' />
+        <require attribute='employer' message='is required for donations over $200' />
+    </rule>
 </rules>

@@ -1,10 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <rules>
-    <rule attribute='amount' type='donor' person='individual' threshold='&gt; 200' time='year'>
-        <require attribute='occupation' message='is required for donations over $200' />
-        <require attribute='employer' message='is required for donations over $200' />
-    </rule>
-
     <rule attribute='amount' type='donor' person='individual' threshold='&gt; 1000' time='year'>
         <stop message='Individuals cannot donate more than $1000' />
     </rule>

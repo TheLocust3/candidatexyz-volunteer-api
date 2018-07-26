@@ -1,5 +1,5 @@
 class Receipt < ApplicationRecord
-  include CandidateXYZ::Concerns::Rulable
+  include Rulable
 
   before_validation :sanitize_phone_number
 
@@ -32,8 +32,9 @@ class Receipt < ApplicationRecord
   end
 
   def rules
-    donation_actions = RulesOrganizer.rules['ma']['municipal']['donation'].check(self, Donor.get(name, campaign_id))
-    receipt_actions = RulesOrganizer.rules['ma']['municipal']['receipt'].check(self)
+    donor = Donor.get(name, campaign_id)
+    donation_actions = RulesOrganizer.rules['ma']['municipal']['donation'].check(self, donor)
+    receipt_actions = RulesOrganizer.rules['ma']['municipal']['receipt'].check(self, donor)
 
     handle_rules(donation_actions, self)
     handle_rules(receipt_actions, self)

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <rules>
-    <rule attribute='amount' type='in_kind' threshold='&lt;= 50'>
+    <rule attribute='value' type='in_kind' threshold='&lt;= 50'>
         <hide />
     </rule>
 </rules>
