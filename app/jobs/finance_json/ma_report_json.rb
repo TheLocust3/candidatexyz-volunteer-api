@@ -12,10 +12,10 @@ module FinanceJSON
 
     def initialize(report, receipts, expenditures, in_kinds, liabilities, campaign, users, committee, last_report)
       @report = report
-      @receipts = receipts
-      @expenditures = expenditures
-      @in_kinds = in_kinds
-      @liabilities = liabilities
+      @receipts = receipts.sort_by { |receipt| receipt.name }
+      @expenditures = expenditures.sort_by { |expenditure| expenditure.paid_to }
+      @in_kinds = in_kinds.sort_by { |in_kind| in_kind.from_whom }
+      @liabilities = liabilities.sort_by { |liability| liability.to_whom }
       @campaign = campaign
       @users = users
       @committee = committee
