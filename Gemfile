@@ -13,7 +13,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'rack-cors'
 
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pry-byebug'
 end
 
 group :development do

@@ -1,0 +1,1 @@
+::RulesOrganizer = Rules::RulesOrganizer.new
