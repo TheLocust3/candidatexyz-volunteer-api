@@ -11,7 +11,7 @@ class DonorsController < ApplicationController
     end
 
     def show
-        @donor = Donor.get(params[:id], @campaign_id)
+        @donor = Donor.get(params[:name], @campaign_id)
         
         if @donor.nil?
             not_found

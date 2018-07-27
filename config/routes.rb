@@ -38,5 +38,5 @@ Rails.application.routes.draw do
   resources :notifications, defaults: { format: :json }
 
   get 'donors' => 'donors#index'
-  get 'donors/:id' => 'donors#get'
+  get 'donors/:name' => 'donors#show'
 end

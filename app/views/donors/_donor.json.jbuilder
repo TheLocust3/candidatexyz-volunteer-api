@@ -5,8 +5,6 @@ json.city donor.city
 json.state donor.state
 json.country donor.country
 
-json.dateReceived donor.date_received
-
 json.occupation donor.occupation
 json.employer donor.employer
 
