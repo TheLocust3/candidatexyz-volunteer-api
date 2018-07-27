@@ -1,5 +1,5 @@
 class Donor
-    attr_reader :name, :email, :phone_number, :person, :amount, :occupation, :employer, :address, :city, :state, :country, :receipts, :in_kinds, :donations
+    attr_reader :name, :email, :phone_number, :person, :amount, :occupation, :employer, :address, :city, :state, :country, :date_received, :receipts, :in_kinds, :donations
 
     def self.all(campaign_id)
         receipts = Receipt.where( :campaign_id => campaign_id )
@@ -12,7 +12,7 @@ class Donor
 
             amount = Money.new(0)
             donations_with_name.each { |donation| amount += donation[:amount] }
-            donors << Donor.new(donor_donation[:name], donor_donation[:email], donor_donation[:phone_number], donor_donation[:person], amount, donor_donation[:occupation], donor_donation[:employer], donor_donation[:address], donor_donation[:city], donor_donation[:state], donor_donation[:country], receipts, in_kinds, donations_with_name)
+            donors << Donor.new(donor_donation[:name], donor_donation[:email], donor_donation[:phone_number], donor_donation[:person], amount, donor_donation[:occupation], donor_donation[:employer], donor_donation[:address], donor_donation[:city], donor_donation[:state], donor_donation[:country], donor_donation[:date_received], receipts, in_kinds, donations_with_name)
         end
 
         donors
@@ -22,7 +22,7 @@ class Donor
         self.all(campaign_id).select { |donor| donor.name == name }.first
     end
 
-    def initialize(name, email, phone_number, person, amount, occupation, employer, address, city, state, country, receipts, in_kinds, donations)
+    def initialize(name, email, phone_number, person, amount, occupation, employer, address, city, state, country, date_received, receipts, in_kinds, donations)
         @name = name
         @email = email
         @phone_number = phone_number
@@ -34,6 +34,7 @@ class Donor
         @city = city
         @state = state
         @country = country
+        @date_received = date_received
         @receipts = receipts
         @in_kinds = in_kinds
         @donations = donations
