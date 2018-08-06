@@ -13,3 +13,5 @@ json.amountString donor.amount.format
 
 json.email donor.email
 json.phoneNumber donor.phone_number
+
+json.donations donor.donations

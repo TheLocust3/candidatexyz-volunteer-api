@@ -1,5 +1,5 @@
 class Donation
-    attr_reader :id, :name, :type, :email, :phone_number, :person, :amount, :occupation, :employer, :address, :city, :state, :country, :date_received
+    attr_reader :id, :name, :type, :email, :phone_number, :person, :amount, :amountString, :occupation, :employer, :address, :city, :state, :country, :date_received
 
     def self.all(campaign_id)
         receipts = Receipt.where( :campaign_id => campaign_id )
@@ -24,6 +24,7 @@ class Donation
         @phone_number = phone_number
         @person = person
         @amount = amount
+        @amountString = amount.to_s
         @occupation = occupation
         @employer = employer
         @address = address
