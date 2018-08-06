@@ -1,5 +1,6 @@
 class CommitteesController < ApplicationController
     include CandidateXYZ::Concerns::Authenticatable
+    include CandidateXYZ::Concerns::Request
 
     before_action :authenticate
     before_action :authenticate_campaign_id
@@ -47,7 +48,11 @@ class CommitteesController < ApplicationController
         @committee = Committee.new(parameters)
 
         if @committee.save
-            report = Report.new( :report_type => 'cpf_m101_18', :official => true, :report_class => 'pac', :campaign_id => @campaign_id, :data => { :committee_id => @committee.id } )
+            campaign = get("#{Rails.application.secrets.auth_api}/campaigns/#{@campaign_id}")
+
+            report_type = Report.REPORT_TYPES[campaign['state'].downcase.to_sym].select { |report_type| report_type[:reportClass] == 'pac' && report_type[:officeType] == campaign['officeType'] && report_type[:name] == 'Creation' }.first
+
+            report = Report.new( :report_type => report_type[:value], :official => true, :report_class => 'pac', :campaign_id => @campaign_id, :data => { :committee_id => @committee.id } )
 
             if report.save
                 Notification.create!( :title => 'Committee formation report being processed', :body => 'Committee formation documents are being generated', :link => "/finance/reports/#{report.id}", :campaign_id => @campaign_id )

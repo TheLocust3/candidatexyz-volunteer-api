@@ -1,11 +1,12 @@
 class Report < ApplicationRecord  
   @@REPORT_TYPES = { ma: [
-    { name: '8th day preceding preliminary', value: 'M102_edit_8_prelim', reportClass: 'finance', type: 'preliminaryDay', dueDate: '-8', endingDate: '-18' },
-    { name: '8th day preceding election', value: 'M102_edit_8_elect', reportClass: 'finance', type: 'electionDay', dueDate: '-8', endingDate: '-18' },
-    { name: '30 day after election', value: 'M102_edit_30_after', reportClass: 'finance', type: 'electionDay', dueDate: '30', endingDate: '20' },
-    { name: 'Year-end report', value: 'M102_edit_year_end', reportClass: 'finance', dueDate: '2018-01-20', endingDate: '2018-12-31' }, # year is arbitrary
-    { name: 'Dissolution', value: 'M102_edit_dissolution', reportClass: 'finance' },
-    { name: 'Creation', value: 'cpf_m101_18', reportClass: 'pac' }]
+    { name: '8th day preceding preliminary', value: 'M102_edit_8_prelim', officeType: 'Municipal', reportClass: 'finance', type: 'preliminaryDay', dueDate: '-8', endingDate: '-18' },
+    { name: '8th day preceding election', value: 'M102_edit_8_elect', officeType: 'Municipal', reportClass: 'finance', type: 'electionDay', dueDate: '-8', endingDate: '-18' },
+    { name: '30 day after election', value: 'M102_edit_30_after', officeType: 'Municipal', reportClass: 'finance', type: 'electionDay', dueDate: '30', endingDate: '20' },
+    { name: 'Year-end report', value: 'M102_edit_year_end', officeType: 'Municipal', reportClass: 'finance', dueDate: '2018-01-20', endingDate: '2018-12-31' }, # year is arbitrary
+    { name: 'Dissolution', value: 'M102_edit_dissolution', officeType: 'Municipal', reportClass: 'finance' },
+    { name: 'Creation', value: 'cpf_m101_18', officeType: 'Municipal', reportClass: 'pac' },
+    { name: 'Creation', value: 'cpf_101', officeType: 'State', reportClass: 'pac' }]
   }
 
   validates :campaign_id, presence: true

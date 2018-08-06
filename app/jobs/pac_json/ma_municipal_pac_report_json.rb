@@ -22,7 +22,7 @@ module PacJSON
 
     private
     def data_main
-      data['ma'][@report.report_type]
+      data['ma']['municipal'][@report.report_type]
     end
 
     def generate
