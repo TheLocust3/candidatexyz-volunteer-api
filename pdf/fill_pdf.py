@@ -37,9 +37,9 @@ if __name__ == '__main__':
         d = json.load(json_data)
 
         for state, value in d.items():
-            for municipal, value2 in value.items():
+            for office_type, value2 in value.items():
                 for name, pdf in value2.items():
-                    update_form_values(writer, f"pdf/{state}/{municipal}/{name.split('-')[0]}.pdf", pdf)
+                    update_form_values(writer, f"pdf/{state}/{office_type}/{name.split('-')[0]}.pdf", pdf)
 
     with open(outfile, 'wb') as out:
         writer.write(out)

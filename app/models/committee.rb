@@ -9,6 +9,7 @@ class Committee < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :country, presence: true
+  validates :zipcode, presence: true
 
   validates :office, presence: true
   validates :district, presence: true

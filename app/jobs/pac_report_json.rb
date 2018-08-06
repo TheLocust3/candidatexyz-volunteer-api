@@ -12,6 +12,8 @@ class PACReportJSON
     if state.to_s == 'ma'
       if campaign['officeType'] == 'Municipal'
         @data = PacJSON::MAMunicipalPacReportJSON.new(report, campaign, users, committee).data
+      elsif campaign['officeType'] == 'State'
+        @data = PacJSON::MAStatePacReportJSON.new(report, campaign, users, committee).data
       end
     end
   end
