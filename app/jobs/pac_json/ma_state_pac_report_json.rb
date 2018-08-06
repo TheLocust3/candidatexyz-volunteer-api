@@ -37,8 +37,7 @@ module PacJSON
       candidate = @users.select { |user| user['position'] == 'Candidate' }.first
 
       data_main['textfield']['txtCandName[0]'] = candidate['lastName']
-      # TODO: Add middle initial
-      # data_main['textfield']['txtCandName[2]'] = MIDDLE INITIAL
+      data_main['textfield']['txtCandName[2]'] = candidate['middleName'][0, 1]
       data_main['textfield']['txtCandName[1]'] = candidate['lastName']
 
       data_main['textfield']['txtCandAddress[0]'] = candidate['address']
