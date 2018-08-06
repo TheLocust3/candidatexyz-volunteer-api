@@ -5,8 +5,8 @@ class Report < ApplicationRecord
     { name: '30 day after election', value: 'M102_edit_30_after', officeType: 'Municipal', reportClass: 'finance', type: 'electionDay', dueDate: '30', endingDate: '20' },
     { name: 'Year-end report', value: 'M102_edit_year_end', officeType: 'Municipal', reportClass: 'finance', dueDate: '2018-01-20', endingDate: '2018-12-31' }, # year is arbitrary
     { name: 'Dissolution', value: 'M102_edit_dissolution', officeType: 'Municipal', reportClass: 'finance' },
-    { name: 'Creation', value: 'cpf_m101_18', officeType: 'Municipal', reportClass: 'pac' },
-    { name: 'Creation', value: 'cpf_101', officeType: 'State', reportClass: 'pac' }]
+    { name: 'Creation', value: 'cpf_m101_18', officeType: 'Municipal', reportClass: 'committee' },
+    { name: 'Creation', value: 'cpf_101', officeType: 'State', reportClass: 'committee' }]
   }
 
   validates :campaign_id, presence: true

@@ -1,6 +1,6 @@
 require 'json'
 
-class PACReportJSON
+class CommitteeReportJSON
   attr_reader :data
 
   def initialize(state, report, campaign, users, committee)
@@ -11,9 +11,9 @@ class PACReportJSON
 
     if state.to_s == 'ma'
       if campaign['officeType'] == 'Municipal'
-        @data = PacJSON::MAMunicipalPacReportJSON.new(report, campaign, users, committee).data
+        @data = CommitteeJSON::MAMunicipalCommitteeReportJSON.new(report, campaign, users, committee).data
       elsif campaign['officeType'] == 'State'
-        @data = PacJSON::MAStatePacReportJSON.new(report, campaign, users, committee).data
+        @data = CommitteeJSON::MAStateCommitteeReportJSON.new(report, campaign, users, committee).data
       end
     end
   end

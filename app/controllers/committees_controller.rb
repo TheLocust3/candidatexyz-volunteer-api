@@ -50,9 +50,9 @@ class CommitteesController < ApplicationController
         if @committee.save
             campaign = get("#{Rails.application.secrets.auth_api}/campaigns/#{@campaign_id}")
 
-            report_type = Report.REPORT_TYPES[campaign['state'].downcase.to_sym].select { |report_type| report_type[:reportClass] == 'pac' && report_type[:officeType] == campaign['officeType'] && report_type[:name] == 'Creation' }.first
+            report_type = Report.REPORT_TYPES[campaign['state'].downcase.to_sym].select { |report_type| report_type[:reportClass] == 'committee' && report_type[:officeType] == campaign['officeType'] && report_type[:name] == 'Creation' }.first
 
-            report = Report.new( :report_type => report_type[:value], :official => true, :report_class => 'pac', :campaign_id => @campaign_id, :data => { :committee_id => @committee.id } )
+            report = Report.new( :report_type => report_type[:value], :official => true, :report_class => 'committee', :campaign_id => @campaign_id, :data => { :committee_id => @committee.id } )
 
             if report.save
                 Notification.create!( :title => 'Committee formation report being processed', :body => 'Committee formation documents are being generated', :link => "/finance/reports/#{report.id}", :campaign_id => @campaign_id )
@@ -62,7 +62,7 @@ class CommitteesController < ApplicationController
                   client: request.headers['client'],
                   'access-token': request.headers['access-token']
                 }
-                PACCreationReportJob.perform_later(auth_headers, report, @campaign_id)
+                CommitteeCreationReportJob.perform_later(auth_headers, report, @campaign_id)
 
                 report_variables
 

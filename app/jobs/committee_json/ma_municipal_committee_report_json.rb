@@ -1,7 +1,7 @@
 require 'json'
 
-module PacJSON
-  class MAMunicipalPacReportJSON
+module CommitteeJSON
+  class MAMunicipalCommitteeReportJSON
 
     attr_reader :data
 

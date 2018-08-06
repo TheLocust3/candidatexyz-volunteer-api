@@ -1,6 +1,6 @@
 require 'json'
 
-class PACCreationReportJob < ApplicationJob
+class CommitteeCreationReportJob < ApplicationJob
   include CandidateXYZ::Concerns::Request
 
   queue_as :default
@@ -27,7 +27,7 @@ class PACCreationReportJob < ApplicationJob
       users = get("#{Rails.application.secrets.auth_api}/users/users_with_committee_positions?campaign_id=#{campaign_id}")['users']
       committee = Committee.where( :campaign_id => campaign_id ).first
 
-      reportJson = PACReportJSON.new(report_state, report, campaign, users, committee)
+      reportJson = CommitteeReportJSON.new(report_state, report, campaign, users, committee)
       reportJson.save(json_filename)
 
       `python3 pdf/fill_pdf.py #{out_filename} #{json_filename}`
