@@ -15,7 +15,9 @@ class FinanceReportJSON
     @last_report = last_report
 
     if state.to_s == 'ma'
-      @data = FinanceJSON::MAReportJSON.new(report, receipts, expenditures, in_kinds, liabilities, campaign, users, committee, last_report).data
+      if campaign['officeType'] == 'Municipal'
+        @data = FinanceJSON::MAMunicipalReportJSON.new(report, receipts, expenditures, in_kinds, liabilities, campaign, users, committee, last_report).data
+      end
     end
   end
 

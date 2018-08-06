@@ -1,7 +1,7 @@
 require 'json'
 
 module PacJSON
-  class MaPacReportJSON
+  class MAMunicipalPacReportJSON
 
     attr_reader :data
 
@@ -13,8 +13,9 @@ module PacJSON
 
       @data = Hash.new
       @data['ma'] = Hash.new
-      @data['ma'][@report.report_type] = Hash.new
-      @data['ma'][@report.report_type]['textfield'] = Hash.new
+      @data['ma']['municipal'] = Hash.new
+      @data['ma']['municipal'][@report.report_type] = Hash.new
+      @data['ma']['municipal'][@report.report_type]['textfield'] = Hash.new
 
       generate
     end

@@ -48,7 +48,10 @@ class FinanceReportJob < ApplicationJob
 
       report.status = 'done'
       report.save
-    rescue
+    rescue Exception => e
+      puts e
+      puts e.backtrace
+
       report.status = 'error'
       report.save
     end

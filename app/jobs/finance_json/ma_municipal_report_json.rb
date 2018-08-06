@@ -1,7 +1,7 @@
 require 'json'
 
 module FinanceJSON
-  class MAReportJSON
+  class MAMunicipalReportJSON
     @@PAGES = 7
     @@RECEIPTS = 25
     @@EXPENDITURES = 25
@@ -23,7 +23,8 @@ module FinanceJSON
 
       @data = Hash.new
       @data['ma'] = Hash.new
-      @data['ma'][@report.report_type] = Hash.new
+      @data['ma']['municipal'] = Hash.new
+      @data['ma']['municipal'][@report.report_type] = Hash.new
 
       @pages = @@PAGES
 
@@ -36,7 +37,7 @@ module FinanceJSON
     end
 
     def data_ma
-      data['ma']
+      data['ma']['municipal']
     end
 
     def generate

@@ -27,7 +27,7 @@ def update_checkbox_values(page, fields):
                     NameObject('/AS'): NameObject(fields[field])
                 })
 
-# python fill_pdf.py INPUT_FILE_NAME OUTPUT_FILE_NAME JSON_FORM_DATA_FILE_NAME
+# python fill_pdf.py OUTPUT_FILE_NAME JSON_FORM_DATA_FILE_NAME
 if __name__ == '__main__':
     outfile = sys.argv[1]
 
@@ -37,9 +37,9 @@ if __name__ == '__main__':
         d = json.load(json_data)
 
         for state, value in d.items():
-            for name, pdf in value.items():
-                print(pdf)
-                update_form_values(writer, f"pdf/{state}/{name.split('-')[0]}.pdf", pdf)
+            for municipal, value2 in value.items():
+                for name, pdf in value2.items():
+                    update_form_values(writer, f"pdf/{state}/{municipal}/{name.split('-')[0]}.pdf", pdf)
 
     with open(outfile, 'wb') as out:
         writer.write(out)
