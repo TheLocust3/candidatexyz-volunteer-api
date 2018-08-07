@@ -1,0 +1,5 @@
+one:
+  campaign_id: 1234
+  report_type: type
+  report_class: class
+  status: done

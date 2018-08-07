@@ -1,0 +1,5 @@
+one:
+  campaign_id: 12345
+  title: Title
+  body: Body of notification
+  link: www.google.com

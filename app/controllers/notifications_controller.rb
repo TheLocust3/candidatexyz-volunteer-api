@@ -10,7 +10,7 @@ class NotificationsController < ApplicationController
     end
 
     def show
-        @notification = Notification.where( :id => params[:id], :campaign_id => @campaign_id, :user_id => @current_user.id ).first
+        @notification = Notification.where( :id => params[:id], :campaign_id => @campaign_id, :user_id => [@current_user.id, ''] ).first
         
         if @notification.nil?
             not_found

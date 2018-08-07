@@ -1,0 +1,3 @@
+one:
+  campaign_id: 12345
+  payload: { data: 'data' }
