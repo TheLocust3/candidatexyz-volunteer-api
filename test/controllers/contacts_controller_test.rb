@@ -38,10 +38,26 @@ class ContactsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create without authentication' do
     assert_difference('Contact.count', 1) do
-      post contacts_url, params: { first_name: 'Test', last_name: 'Test', email: 'test@gmail.com', zipcode: '01867', campaign_id: @campaign_id }
+      post contacts_url, :params => { first_name: 'Test', last_name: 'Test', email: 'test@gmail.com', zipcode: '01867', campaign_id: @campaign_id }
     end
 
     assert_response :success
+  end
+
+  test 'should update with authentication' do
+    patch contact_url(@contact), :params => { first_name: 'Test 2' }.to_json, :headers => @auth_headers
+    @contact.reload
+
+    assert_response :success
+    assert @contact.first_name == 'Test 2'
+  end
+
+  test "shouldn't update without authentication" do
+    patch contact_url(@contact), :params => { first_name: 'Test 2' }.to_json
+    @contact.reload
+
+    assert_response :unauthorized
+    assert_not @contact.first_name == 'Test 2'
   end
 
   test 'should destroy with authentication' do

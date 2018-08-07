@@ -1,0 +1,10 @@
+one:
+  campaign_id: 12345
+  to_whom: Test Test
+  purpose: Some description
+  address: 304 Franklin Street
+  city: Reading
+  state: MA
+  country: United States
+  date_incurred: <%= DateTime.now %>
+  amount_cents: 3000

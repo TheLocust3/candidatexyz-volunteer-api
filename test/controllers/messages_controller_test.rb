@@ -38,7 +38,7 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create without authentication' do
     assert_difference('Message.count', 1) do
-      post messages_url, params: { first_name: 'Test', last_name: 'Test', email: 'test@gmail.com', subject: 'A Subject', message: 'A message', campaign_id: @campaign_id }
+      post messages_url, :params => { first_name: 'Test', last_name: 'Test', email: 'test@gmail.com', subject: 'A Subject', message: 'A message', campaign_id: @campaign_id }
     end
 
     assert_response :success
