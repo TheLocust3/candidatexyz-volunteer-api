@@ -1,0 +1,7 @@
+one:
+  campaign_id: 12345
+  first_name: Test
+  last_name: Test
+  email: test@gmail.com
+  zipcode: 01867
+  phone_number: 781-315-5580

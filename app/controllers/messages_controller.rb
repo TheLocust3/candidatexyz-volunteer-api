@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
     include CandidateXYZ::Concerns::Authenticatable
+    
     before_action :authenticate, except: [ :create ]
     before_action :authenticate_campaign_id, except: [ :create ]
 
