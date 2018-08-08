@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'test', keyFileVariable: 'KEY', passphraseVariable: '', usernameVariable: '')]) {
+                withCredentials([sshUserPrivateKey(credentialsId: 'test', keyFileVariable: 'SSH_KEY', passphraseVariable: '', usernameVariable: 'SSH_NAME')]) {
                     sh 'ls'
                     sh 'env'
                     sh './jenkins_tests.sh'
