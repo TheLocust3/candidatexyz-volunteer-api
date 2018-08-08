@@ -4,9 +4,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'ruby --version'
-                sh 'pwd'
-                sh 'ls'
-                sh './test_setup'
+                sh './jenkins_tests.sh'
             }
         }
     }
