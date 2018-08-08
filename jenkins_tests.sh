@@ -2,8 +2,6 @@
 
 set -e
 
-env
-
 gem install bundler
 bundle install
 
