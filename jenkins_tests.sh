@@ -6,7 +6,7 @@ echo $SSH_KEY > key
 
 path=pwd
 
-rm /home/ubuntu/.ssh/config
+rm /home/ubuntu/.ssh/config || true
 echo "Host github.com
   IdentityFile ${path}/key" > /home/ubuntu/.ssh/config
 
