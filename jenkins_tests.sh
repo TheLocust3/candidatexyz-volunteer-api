@@ -2,11 +2,14 @@
 
 set -e
 
-rm /home/ubuntu/.ssh/config || true
+ls /home
+ls -a ~
 
-touch /home/ubuntu/.ssh/config
+rm ~/.ssh/config || true
+
+touch ~/.ssh/config
 echo "Host github.com
-  IdentityFile ${$SSH_KEY}" > /home/ubuntu/.ssh/config
+  IdentityFile ${$SSH_KEY}" > ~/.ssh/config
 
 gem install bundler
 bundle install
