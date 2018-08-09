@@ -2,6 +2,9 @@
 
 set -e
 
+sudo apt-get install -y postgresql postgresql-contrib
+sudo systemctl start postgresql
+
 gem install bundler
 
 cd common
