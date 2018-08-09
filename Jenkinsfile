@@ -11,7 +11,7 @@ pipeline {
 
         stage('Setup') {
             steps {
-                sh './setup_jenkins'
+                sh './setup_jenkins.sh'
             }
         }
 
