@@ -2,7 +2,7 @@ pipeline {
     agent { docker { image 'ruby' } }
     stages {
         stage('Prepare/Checkout') {
-            parallel {
+            steps {
                 dir('common') {
                     git branch: 'master', url: 'git@github.com:TheLocust3/candidatexyz-common.git', credentialsId:'common_ssh'
                 }
@@ -10,7 +10,7 @@ pipeline {
         }
 
         stage('Test') {
-            steps {g
+            steps {
                 sh 'ls'
                 sh './jenkins_tests.sh'
             }
