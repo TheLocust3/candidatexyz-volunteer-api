@@ -12,3 +12,5 @@ json.office committee.office
 json.district committee.district
 
 json.bank committee.bank
+
+json.dissolved !committee.dissolution_report.nil?

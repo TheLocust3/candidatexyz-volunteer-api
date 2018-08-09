@@ -5,6 +5,5 @@ set -e
 gem install bundler
 
 bundle config --local local.candidatexyz-common common/
-bundle install
-
-bundle exec rails test
+bundle pack
+bundle install --path vendor/cache

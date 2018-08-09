@@ -9,10 +9,15 @@ pipeline {
             }
         }
 
+        stage('Setup') {
+            steps {
+                sh './setup_jenkins'
+            }
+        }
+
         stage('Test') {
             steps {
-                sh 'ls'
-                sh './jenkins_tests.sh'
+                sh 'bundle exec rails test'
             }
         }
     }

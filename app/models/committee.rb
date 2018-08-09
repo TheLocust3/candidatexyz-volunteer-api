@@ -1,5 +1,6 @@
 class Committee < ApplicationRecord
   before_validation :sanitize_phone_number
+  before_destroy :destroy_reports
 
   validates :name, presence: true
   validates :email, presence: true
@@ -19,7 +20,11 @@ class Committee < ApplicationRecord
   validates :campaign_id, presence: true
 
   def report
-    Report.all.select {|report| report.data['committee_id'] == id }.first
+    Report.where( :campaign_id => campaign_id ).select { |report| report.data['committee_id'] == id && report.report_type_name == 'Creation' }.first
+  end
+
+  def dissolution_report
+    Report.where( :campaign_id => campaign_id ).select { |report| report.data['committee_id'] == id && report.report_type_name == 'Dissolution' }.first
   end
 
   private
@@ -27,5 +32,9 @@ class Committee < ApplicationRecord
     unless self.phone_number.nil?
       self.phone_number = self.phone_number.gsub('-', '').gsub('(', '').gsub(')', '').gsub('+', '') # (123)-123-1234
     end
+  end
+
+  def destroy_reports
+    Report.where( :campaign_id => campaign_id ).map { |report| report.destroy }
   end
 end

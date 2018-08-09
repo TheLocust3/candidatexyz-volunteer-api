@@ -109,7 +109,6 @@ class CommitteesController < ApplicationController
     end
 
     def report_variables
-        @report = @committee.report
         @base_url = "https://s3.amazonaws.com/#{Rails.application.secrets.project_name}-public/reports/#{@campaign_id}"
     end
 end
