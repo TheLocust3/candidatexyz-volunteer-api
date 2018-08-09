@@ -2,9 +2,6 @@
 
 set -e
 
-apt-get update
-apt-get install -y postgresql postgresql-contrib
-
 gem install bundler
 
 cd common
