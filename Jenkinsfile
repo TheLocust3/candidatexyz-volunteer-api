@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], [$class: 'RelativeTargetDirectory', relativeTargetDir: 'common'], userRemoteConfigs: [[url: 'https://github.com/TheLocust3/candidatexyz-common.git']],[credentialsId:'common_ssh']])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/TheLocust3/candidatexyz-common.git']],[credentialsId:'common_ssh']])
                 sh 'ls'
                 sh 'echo test'
                 sh 'ls ../'
