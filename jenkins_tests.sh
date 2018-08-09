@@ -4,7 +4,7 @@ set -e
 
 gem install bundler
 
-env
+printenv
 echo $SSH_KEY
 echo "ssh -i ${SSH_KEY}"
 echo ssh -i $SSH_KEY
