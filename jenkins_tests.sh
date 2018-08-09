@@ -4,7 +4,7 @@ set -e
 
 gem install bundler
 
-bundle config --local local.candidatexyz-common candidatexyz-common/
+bundle config --local local.candidatexyz-common common/
 bundle install
 
 bundle exec rails test
