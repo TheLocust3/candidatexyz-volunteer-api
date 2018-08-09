@@ -2,12 +2,9 @@
 
 set -e
 
-echo "Host github.com
-  IdentityFile ${SSH_KEY}" > /etc/ssh/ssh_config
-
 gem install bundler
 
-git clone git@github.com:TheLocust3/candidatexyz-common.git common/
+GIT_SSH_COMMAND="ssh -i ${SSH_KEY}" git clone git@github.com:TheLocust3/candidatexyz-common.git common/
 
 bundle config --local local.candidatexyz-common common/
 bundle install
