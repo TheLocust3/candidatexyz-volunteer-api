@@ -8,7 +8,7 @@ pipeline {
                 }
 
                 dir('user-api') {
-                    git branch: 'master', url: 'git@github.com:TheLocust3/candidatexyz-common.git', credentialsId:'user_api_ssh'
+                    git branch: 'master', url: 'git@github.com:TheLocust3/user-api.git', credentialsId:'user_api_ssh'
                 }
             }
         }
