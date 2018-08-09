@@ -5,7 +5,7 @@ pipeline {
             steps {
                 checkout([
                     $class: 'GitSCM', branches: [[name: '*/master']],
-                    userRemoteConfigs: [[url: 'git@github.com:TheLocust3/candidatexyz-common.git'], [credentialsId:'common_ssh']]
+                    userRemoteConfigs: [[url: 'git@github.com:TheLocust3/candidatexyz-common.git',credentialsId:'common_ssh']]
                 ])
 
                 sh 'ls'
