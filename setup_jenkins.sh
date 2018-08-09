@@ -2,6 +2,7 @@
 
 set -e
 
+apt-get update
 apt-get install -y postgresql postgresql-contrib
 systemctl start postgresql
 
