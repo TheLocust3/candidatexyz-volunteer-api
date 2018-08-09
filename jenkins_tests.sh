@@ -2,14 +2,8 @@
 
 set -e
 
-ls /home
-ls -a ~
-
-rm ~/.ssh/config || true
-
-touch ~/.ssh/config
 echo "Host github.com
-  IdentityFile ${$SSH_KEY}" > ~/.ssh/config
+  IdentityFile ${$SSH_KEY}" > /etc/ssh/ssh_config
 
 gem install bundler
 bundle install
