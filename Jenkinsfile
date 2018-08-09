@@ -3,11 +3,11 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                withCredentials([sshUserPrivateKey(credentialsId: 'common_ssh', keyFileVariable: 'SSH_KEY', passphraseVariable: '', usernameVariable: 'SSH_NAME')]) {
-                    sh 'env'
-                    sh 'echo $SSH_KEY'
-                    sh './jenkins_tests.sh'
-                }
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], [$class: 'RelativeTargetDirectory', relativeTargetDir: 'common'], userRemoteConfigs: [[url: 'https://github.com/TheLocust3/candidatexyz-common.git']],[credentialsId:'common_ssh']])
+                sh 'ls'
+                sh 'echo test'
+                sh 'ls ../'
+                sh './jenkins_tests.sh'
             }
         }
     }
