@@ -2,7 +2,6 @@ pipeline {
     agent {
         docker {
             image 'ruby'
-            args '-v $HOME/vendor:$HOME/common/vendor:$HOME/user-api/vendor'
         }
     }
     environment {
