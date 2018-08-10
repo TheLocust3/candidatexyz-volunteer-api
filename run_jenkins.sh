@@ -8,7 +8,7 @@ echo BUNDLE_PATH: vendor/bundle > ~/.bundle/config
 
 gem install bundler
 
-cd common
+cd common/
 bundle install --path vendor/bundle
 
 cd ../user-api/
@@ -30,3 +30,5 @@ bundle install --path vendor/bundle
 bundle exec rake db:create
 bundle exec rake db:schema:load
 bundle exec rake db:seed
+
+bundle exec rails test

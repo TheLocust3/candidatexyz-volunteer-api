@@ -25,15 +25,9 @@ pipeline {
             }
         }
 
-        stage('Setup') {
-            steps {
-                sh './setup_jenkins.sh'
-            }
-        }
-
         stage('Test') {
             steps {
-                sh './bin/rails test'
+                sh './run_jenkins.sh'
             }
         }
     }
