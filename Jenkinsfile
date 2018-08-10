@@ -2,6 +2,7 @@ pipeline {
     agent {
         docker {
             image 'ruby'
+            args '-v /var/lib/gems/2.3.0/gems/'
         }
     }
     environment {
@@ -27,7 +28,6 @@ pipeline {
 
         stage('Setup') {
             steps {
-                sh 'echo $HOME'
                 sh './setup_jenkins.sh'
             }
         }
