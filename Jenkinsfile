@@ -5,6 +5,7 @@ pipeline {
         PGPASSWORD = credentials('db_password')
         PGHOST     = 'jenkins.cc5npzmk75z5.us-east-1.rds.amazonaws.com'
         PGPORT     = '5432'
+        AWS_REGION = 'us-east-1'
     }
 
     stages {
