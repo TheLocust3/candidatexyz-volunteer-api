@@ -33,7 +33,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh 'bundle exec rails test'
+                sh './bin/rails test'
             }
         }
     }
