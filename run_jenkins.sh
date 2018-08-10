@@ -33,6 +33,9 @@ bundle exec rake db:create
 bundle exec rake db:schema:load
 bundle exec rake db:seed
 
+# idk but rails wants it
+echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
+
 echo Running tests
 
 bundle exec rails test
