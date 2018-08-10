@@ -7,6 +7,7 @@ json.address committee.address
 json.city committee.city
 json.state committee.state
 json.country committee.country
+json.zipcode committee.zipcode
 
 json.office committee.office
 json.district committee.district

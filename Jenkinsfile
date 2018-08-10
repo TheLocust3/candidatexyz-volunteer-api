@@ -4,7 +4,7 @@ pipeline {
         PGUSER     = 'test'
         PGPASSWORD = credentials('db_password')
         PGHOST     = 'jenkins.cc5npzmk75z5.us-east-1.rds.amazonaws.com'
-        PGPORT     = 5432
+        PGPORT     = '5432'
     }
 
     stages {
