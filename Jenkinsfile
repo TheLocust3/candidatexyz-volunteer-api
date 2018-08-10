@@ -2,7 +2,6 @@ pipeline {
     agent {
         docker {
             image 'ruby'
-            args '-v /var/lib/gems/2.3.0/gems/'
         }
     }
     environment {
