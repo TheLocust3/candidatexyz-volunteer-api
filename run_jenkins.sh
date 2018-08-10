@@ -35,4 +35,4 @@ bundle exec rake db:seed
 
 echo Running tests
 
-bundle exec rails test
+./bin/rails test
