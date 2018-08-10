@@ -2,7 +2,6 @@ pipeline {
     agent {
         docker {
             image 'ruby'
-            args '-v $HOME/.bundle/gems'
         }
     }
     environment {
