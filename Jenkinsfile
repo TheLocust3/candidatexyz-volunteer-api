@@ -1,5 +1,10 @@
 pipeline {
-    agent { docker { image 'ruby' } }
+    agent {
+        docker {
+            image 'ruby'
+            args '-v $HOME/vendor:$HOME/common/vendor:$HOME/user-api/vendor'
+        }
+    }
     environment {
         PGUSER     = 'test'
         PGPASSWORD = credentials('db_password')
@@ -23,6 +28,7 @@ pipeline {
 
         stage('Setup') {
             steps {
+                sh 'echo $HOME'
                 sh './setup_jenkins.sh'
             }
         }
