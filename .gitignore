@@ -20,3 +20,5 @@ tmp/
 .terraform/
 .terraform.*
 terraform.tfstate*
+
+test/reports

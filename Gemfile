@@ -14,6 +14,7 @@ gem 'rack-cors'
 
 group :development, :test do
   gem 'pry-byebug'
+  gem 'minitest-reporters'
 end
 
 group :development do
