@@ -2,6 +2,8 @@
 
 set -e
 
+mkdir ~/.bundle
+touch ~/.bundle/config
 echo BUNDLE_PATH: vendor/bundle > ~/.bundle/config
 
 gem install bundler
