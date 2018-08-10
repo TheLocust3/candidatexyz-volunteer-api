@@ -22,7 +22,7 @@ bundle exec rake db:create
 bundle exec rake db:schema:load
 bundle exec rake db:seed
 
-# bundle exec puma -b tcp://127.0.0.1:3003 &
+bundle exec puma -b tcp://127.0.0.1:3003 &
 
 cd ../
 
@@ -35,4 +35,4 @@ bundle exec rake db:seed
 
 echo Running tests
 
-./bin/rails test
+bundle exec rails test
