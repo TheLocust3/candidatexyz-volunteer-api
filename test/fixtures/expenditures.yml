@@ -8,3 +8,14 @@ one:
   country: United States
   date_paid: <%= DateTime.now %>
   amount_cents: 3000
+
+basic:
+  campaign_id: 12345
+  paid_to: Test Test
+  purpose: Some description
+  address: 304 Franklin Street
+  city: Reading
+  state: MA
+  country: United States
+  date_paid: <%= DateTime.now %>
+  amount_cents: 6000

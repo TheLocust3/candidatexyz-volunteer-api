@@ -8,3 +8,14 @@ one:
   country: United States
   date_received: <%= DateTime.now %>
   value_cents: 3000
+
+basic:
+  campaign_id: 12345
+  from_whom: Test Test
+  description: Some description
+  address: 304 Franklin Street
+  city: Reading
+  state: MA
+  country: United States
+  date_received: <%= DateTime.now %>
+  value_cents: 6000

@@ -8,3 +8,14 @@ one:
   date_received: <%= DateTime.now %>
   amount_cents: 3000
   receipt_type: donation
+
+basic:
+  campaign_id: 12345
+  name: Test Test
+  address: 304 Franklin Street
+  city: Reading
+  state: MA
+  country: United States
+  date_received: <%= DateTime.now %>
+  amount_cents: 6000
+  receipt_type: donation
