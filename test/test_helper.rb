@@ -17,7 +17,7 @@ class ActiveSupport::TestCase
 
   def authenticate(email, password)
     response = HTTParty.post("#{Rails.application.secrets.auth_api}/auth/sign_in", {
-      query: { email: email, password: 'password' }
+      query: { email: email, password: password }
     })
 
     { user: response['data'], headers: response.headers }
