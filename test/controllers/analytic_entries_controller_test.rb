@@ -16,6 +16,9 @@ class AnalyticEntriesControllerTest < ActionDispatch::IntegrationTest
     get analytic_entries_url, :headers => @auth_headers
 
     assert_response :success
+    assert_not @response.parsed_body.nil?
+    assert_not @response.parsed_body['analyticEntries'].nil?
+    assert @response.parsed_body['analyticEntries'].length == 1
   end
 
   test "shouldn't get index without authentication" do

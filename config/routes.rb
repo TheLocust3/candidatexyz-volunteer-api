@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   resources :analytic_entries, defaults: { format: :json }
   get 'ip' => 'analytic_entries#ip'
 
-  resources :images
+  get 'images/:identifier' => 'images#show', defaults: { format: :json }
+  resources :images, defaults: { format: :json }
 
   get 'receipts/export' => 'receipts#export', defaults: { format: :csv }
   resources :receipts, defaults: { format: :json }

@@ -1,27 +1,35 @@
 class ImagesController < ApplicationController
 
     include CandidateXYZ::Concerns::Authenticatable
-    before_action :authenticate, only: [ :index, :create, :update, :destroy ]
+    before_action :authenticate
     before_action :authenticate_campaign_id, only: [ :create ]
 
     def index
-        render :json => Image.all
+        @images = Image.all
+
+        render
     end
 
     def show
-        render :json => Image.where( :identifier => params[:identifier] ).first
+        @image = Image.where( :identifier => params[:identifier] ).first
+
+        if @image.nil?
+            not_found
+        else
+            render
+        end
     end
 
     def create
-        image = Image.new(create_params(params))
+        @image = Image.new(create_params(params))
 
-        S3.put_object(bucket: bucket, key: key(image), body: Base64.decode64(params[:image]), acl: 'public-read')
-        image.url = "https://s3.amazonaws.com/#{bucket}/#{key(image)}"
+        S3.put_object(bucket: bucket, key: key(@image), body: Base64.decode64(params[:image]), acl: 'public-read')
+        @image.url = "https://s3.amazonaws.com/#{bucket}/#{key(@image)}"
 
-        if image.save
-            render :json => image
+        if @image.save
+            render 'show'
         else
-            render_errors(image)
+            render_errors(@image)
         end
     end
 

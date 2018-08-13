@@ -19,6 +19,9 @@ class VolunteersControllerTest < ActionDispatch::IntegrationTest
     get volunteers_url, :headers => @auth_headers
 
     assert_response :success
+    assert_not @response.parsed_body.nil?
+    assert_not @response.parsed_body['volunteers'].nil?
+    assert @response.parsed_body['volunteers'].length == 1
   end
 
   test "shouldn't get index without authentication" do

@@ -15,6 +15,9 @@ class DonorsControllerTest < ActionDispatch::IntegrationTest
     get '/donors', :headers => @auth_headers
 
     assert_response :success
+    assert_not @response.parsed_body.nil?
+    assert_not @response.parsed_body['donors'].nil?
+    assert @response.parsed_body['donors'].length == 1
   end
 
   test "shouldn't get index without authentication" do

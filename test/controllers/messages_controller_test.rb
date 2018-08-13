@@ -16,6 +16,9 @@ class MessagesControllerTest < ActionDispatch::IntegrationTest
     get messages_url, :headers => @auth_headers
 
     assert_response :success
+    assert_not @response.parsed_body.nil?
+    assert_not @response.parsed_body['messages'].nil?
+    assert @response.parsed_body['messages'].length == 1
   end
 
   test "shouldn't get index without authentication" do

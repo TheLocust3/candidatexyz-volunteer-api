@@ -16,6 +16,9 @@ class NotificationsControllerTest < ActionDispatch::IntegrationTest
     get notifications_url, :headers => @auth_headers
 
     assert_response :success
+    assert_not @response.parsed_body.nil?
+    assert_not @response.parsed_body['notifications'].nil?
+    assert @response.parsed_body['notifications'].length == 1
   end
 
   test "shouldn't get index without authentication" do

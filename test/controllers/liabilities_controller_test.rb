@@ -16,6 +16,9 @@ class LiabilitiesControllerTest < ActionDispatch::IntegrationTest
     get liabilities_url, :headers => @auth_headers
 
     assert_response :success
+    assert_not @response.parsed_body.nil?
+    assert_not @response.parsed_body['liabilities'].nil?
+    assert @response.parsed_body['liabilities'].length == 1
   end
 
   test "shouldn't get index without authentication" do

@@ -16,6 +16,9 @@ class ReceiptsControllerTest < ActionDispatch::IntegrationTest
     get receipts_url, :headers => @auth_headers
 
     assert_response :success
+    assert_not @response.parsed_body.nil?
+    assert_not @response.parsed_body['receipts'].nil?
+    assert @response.parsed_body['receipts'].length == 1
   end
 
   test "shouldn't get index without authentication" do
