@@ -34,6 +34,7 @@ class VolunteersControllerTest < ActionDispatch::IntegrationTest
     get volunteer_url(@volunteer), :headers => @auth_headers
 
     assert_response :success
+    assert @response.parsed_body['id'] == @volunteer.id
   end
 
   test "shouldn't get show without authentication" do

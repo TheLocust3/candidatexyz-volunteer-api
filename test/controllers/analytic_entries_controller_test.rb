@@ -31,6 +31,7 @@ class AnalyticEntriesControllerTest < ActionDispatch::IntegrationTest
     get analytic_entry_url(@analytic_entry), :headers => @auth_headers
 
     assert_response :success
+    assert @response.parsed_body['id'] == @analytic_entry.id
   end
 
   test "shouldn't get show without authentication" do

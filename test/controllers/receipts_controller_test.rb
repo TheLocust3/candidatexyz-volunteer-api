@@ -31,6 +31,7 @@ class ReceiptsControllerTest < ActionDispatch::IntegrationTest
     get receipt_url(@receipt), :headers => @auth_headers
 
     assert_response :success
+    assert @response.parsed_body['id'] == @receipt.id
   end
 
   test "shouldn't get show without authentication" do

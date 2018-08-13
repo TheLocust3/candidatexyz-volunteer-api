@@ -30,6 +30,7 @@ class DonorsControllerTest < ActionDispatch::IntegrationTest
     get "/donors/#{URI.encode(@receipt.name)}", :headers => @auth_headers
 
     assert_response :success
+    assert @response.parsed_body['name'] == @receipt.name
   end
 
   test "shouldn't get show without authentication" do

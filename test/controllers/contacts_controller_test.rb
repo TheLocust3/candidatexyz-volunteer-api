@@ -31,6 +31,7 @@ class ContactsControllerTest < ActionDispatch::IntegrationTest
     get contact_url(@contact), :headers => @auth_headers
 
     assert_response :success
+    assert @response.parsed_body['id'] == @contact.id
   end
 
   test "shouldn't get show without authentication" do

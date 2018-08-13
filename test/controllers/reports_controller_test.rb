@@ -31,6 +31,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     get report_url(@report), :headers => @auth_headers
 
     assert_response :success
+    assert @response.parsed_body['id'] == @report.id
   end
 
   test "shouldn't get show without authentication" do

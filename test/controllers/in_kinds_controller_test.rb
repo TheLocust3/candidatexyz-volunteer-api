@@ -31,6 +31,7 @@ class InKindsControllerTest < ActionDispatch::IntegrationTest
     get in_kind_url(@in_kind), :headers => @auth_headers
 
     assert_response :success
+    assert @response.parsed_body['id'] == @in_kind.id
   end
 
   test "shouldn't get show without authentication" do

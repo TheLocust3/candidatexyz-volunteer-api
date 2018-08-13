@@ -26,6 +26,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     get "/images/#{@image.identifier}", :headers => @auth_headers
 
     assert_response :success
+    assert @response.parsed_body['id'] == @image.id
   end
 
   test "shouldn't get show without authentication" do
