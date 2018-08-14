@@ -4,7 +4,7 @@ class LiabilitiesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @liability = liabilities(:one)
 
-    user = authenticate_test # TODO: Don't auth every single time
+    user = authenticate_test
     @campaign_id = user[:user]['campaignId']
     @liability.campaign_id = @campaign_id
     @liability.save

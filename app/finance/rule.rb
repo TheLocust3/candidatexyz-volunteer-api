@@ -39,7 +39,7 @@ class Rule
         keys = keys - ['type', 'attribute', 'threshold']
 
         for key in keys
-            # time has some extra logic to it that I haven't written
+            # TODO: time has some extra logic to it that I haven't written
             if key != 'time' && key != 'to_person' && object.send(key) != raw_rule[key]
                 return false
             end

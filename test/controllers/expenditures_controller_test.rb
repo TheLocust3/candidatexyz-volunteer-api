@@ -4,7 +4,7 @@ class ExpendituresControllerTest < ActionDispatch::IntegrationTest
   setup do
     @expenditure = expenditures(:one)
 
-    user = authenticate_test # TODO: Don't auth every single time
+    user = authenticate_test
     @campaign_id = user[:user]['campaignId']
     @expenditure.campaign_id = @campaign_id
     @expenditure.save

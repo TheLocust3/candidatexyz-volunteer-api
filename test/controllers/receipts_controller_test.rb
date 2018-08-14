@@ -4,7 +4,7 @@ class ReceiptsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @receipt = receipts(:one)
 
-    user = authenticate_test # TODO: Don't auth every single time
+    user = authenticate_test
     @campaign_id = user[:user]['campaignId']
     @receipt.campaign_id = @campaign_id
     @receipt.save

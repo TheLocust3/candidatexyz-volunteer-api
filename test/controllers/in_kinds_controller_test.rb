@@ -4,7 +4,7 @@ class InKindsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @in_kind = in_kinds(:one)
 
-    user = authenticate_test # TODO: Don't auth every single time
+    user = authenticate_test
     @campaign_id = user[:user]['campaignId']
     @in_kind.campaign_id = @campaign_id
     @in_kind.save

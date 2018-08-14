@@ -4,7 +4,7 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @report = reports(:one)
 
-    user = authenticate_test # TODO: Don't auth every single time
+    user = authenticate_test
     @campaign_id = user[:user]['campaignId']
     @report.campaign_id = @campaign_id
     @report.save

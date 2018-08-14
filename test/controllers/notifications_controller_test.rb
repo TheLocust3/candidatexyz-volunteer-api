@@ -4,7 +4,7 @@ class NotificationsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @notification = notifications(:one)
 
-    user = authenticate_test # TODO: Don't auth every single time
+    user = authenticate_test
     @campaign_id = user[:user]['campaignId']
     @notification.campaign_id = @campaign_id
     @notification.save

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class AnalyticEntriesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    user = authenticate_test # TODO: Don't auth every single time
+    user = authenticate_test
     @campaign_id = user[:user]['campaignId']
 
     [:one, :two, :three, :four, :five].map do |sym|

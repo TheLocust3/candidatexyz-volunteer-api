@@ -36,10 +36,11 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should create with authentication' do
+    identifier = SecureRandom.uuid
     content = File.open('test/fixtures/files/test.png', 'rb').read
 
     assert_difference('Image.count', 1) do
-      post images_url, :params => { identifier: 'test', image: Base64.encode64(content) }, :headers => @auth_headers, as: :json
+      post images_url, :params => { identifier: identifier, image: Base64.encode64(content) }, :headers => @auth_headers, as: :json
     end
 
     assert_response :success
@@ -62,10 +63,11 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should delete with authentication' do
+    identifier = SecureRandom.uuid
     content = File.open('test/fixtures/files/test.png', 'rb').read
-    post images_url, :params => { identifier: 'test', image: Base64.encode64(content) }, :headers => @auth_headers, as: :json
+    post images_url, :params => { identifier: identifier, image: Base64.encode64(content) }, :headers => @auth_headers, as: :json
 
-    image = Image.where( :identifier => 'test' ).first
+    image = Image.where( :identifier => identifier ).first
 
     assert_difference('Image.count', -1) do
       delete image_url(image), :headers => @auth_headers
