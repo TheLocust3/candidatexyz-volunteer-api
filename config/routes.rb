@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get 'messages/export' => 'messages#export', defaults: { format: :csv }
   resources :messages, defaults: { format: :json }
 
-  get 'analytic_entries/aggregate' => 'analytic_entries#aggregate'
+  get 'analytic_entries/aggregate' => 'analytic_entries#aggregate', defaults: { format: :json }
   resources :analytic_entries, defaults: { format: :json }
   get 'ip' => 'analytic_entries#ip'
 
