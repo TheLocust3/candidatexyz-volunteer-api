@@ -9,8 +9,6 @@ Minitest::Reporters.use! Minitest::Reporters::JUnitReporter.new
 class ActiveSupport::TestCase  
   fixtures :all
 
-  include CandidateXYZ::Concerns::Authenticatable
-
   def authenticate_test
     authenticate('test@gmail.com', 'password')
   end
