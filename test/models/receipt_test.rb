@@ -2,7 +2,6 @@ require 'test_helper'
  
 class ReceiptTest < ActiveSupport::TestCase
 
-  # TODO: Rules engine seems to take a shit on these
   test 'should create receipt with minimum information' do
     receipt = Receipt.new( name: 'Test Test', address: '304 Franklin Street', city: 'Reading', state: 'MA', country: 'United States', date_received: DateTime.new(2018, 1, 1, 1, 0), amount: 50, campaign_id: '1234' )
 

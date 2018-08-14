@@ -35,13 +35,42 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :unauthorized
   end
 
+  test 'should create with authentication' do
+    content = File.open('test/fixtures/files/test.png', 'rb').read
+
+    assert_difference('Image.count', 1) do
+      post images_url, :params => { identifier: 'test', image: Base64.encode64(content) }, :headers => @auth_headers, as: :json
+    end
+
+    assert_response :success
+  end
+
   test "shouldn't create without authentication" do
     assert_difference('AnalyticEntry.count', 0) do
-      post images_url, :params => { identifier: 'blah', url: 'test' }.to_json
+      post images_url, :params => { identifier: 'blah' }.to_json
     end
 
     assert_response :unauthorized
   end
 
-  # TODO: Actually upload image image. Test deletion
+  test "shouldn't destroy without authentication" do
+    assert_difference('AnalyticEntry.count', 0) do
+      delete image_url(@image)
+    end
+
+    assert_response :unauthorized
+  end
+
+  test 'should delete with authentication' do
+    content = File.open('test/fixtures/files/test.png', 'rb').read
+    post images_url, :params => { identifier: 'test', image: Base64.encode64(content) }, :headers => @auth_headers, as: :json
+
+    image = Image.where( :identifier => 'test' ).first
+
+    assert_difference('Image.count', -1) do
+      delete image_url(image), :headers => @auth_headers
+    end
+
+    assert_response :success
+  end
 end
