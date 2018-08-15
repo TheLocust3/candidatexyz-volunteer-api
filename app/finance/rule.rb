@@ -8,8 +8,6 @@ class Rule
     def check(data)
         object = data[raw_rule['type'].to_sym]
         if object.nil?
-            puts "ERROR: Object isn't found in data array!"
-
             return []
         end
 
@@ -19,8 +17,6 @@ class Rule
 
         attribute = object.send(raw_rule['attribute'])
         if attribute.nil?
-            puts "ERROR: Attribute isn't found in data array!"
-
             return []
         end
 
@@ -39,8 +35,10 @@ class Rule
         keys = keys - ['type', 'attribute', 'threshold']
 
         for key in keys
+            result = object.method(key).parameters.length == 0 ? object.send(key) : object.send(key, raw_rule[key])
+
             # TODO: time has some extra logic to it that I haven't written
-            if key != 'time' && key != 'to_person' && object.send(key) != raw_rule[key]
+            if key != 'time' && key != 'to_person' && result != raw_rule[key]
                 return false
             end
         end

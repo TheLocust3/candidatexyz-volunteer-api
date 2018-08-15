@@ -59,6 +59,11 @@ resource "aws_s3_bucket" "bucket2" {
   acl    = "aws-exec-read"
 }
 
+resource "aws_s3_bucket" "bucket3" {
+  bucket = "candidatexyz-images"
+  acl    = "aws-exec-read"
+}
+
 data "aws_security_group" "security_group" {
   name = "${var.common_name}-ec2"
 }
@@ -81,10 +86,23 @@ data "aws_iam_policy_document" "s3" {
   }
 }
 
+data "aws_iam_policy_document" "s3_2" {
+  statement {
+    actions   = ["s3:PutObject", "s3:PutObjectAcl"]
+    resources = ["arn:aws:s3:::${aws_s3_bucket.bucket3.bucket}/*"]
+  }
+}
+
 resource "aws_iam_policy" "s3" {
   name   = "${var.name}-ec2-s3"
   path   = "/"
   policy = "${data.aws_iam_policy_document.s3.json}"
+}
+
+resource "aws_iam_policy" "s3_2" {
+  name   = "${var.name}-ec2-s3-2"
+  path   = "/"
+  policy = "${data.aws_iam_policy_document.s3_2.json}"
 }
 
 resource "aws_iam_role" "ec2-role" {
@@ -95,6 +113,11 @@ resource "aws_iam_role" "ec2-role" {
 resource "aws_iam_role_policy_attachment" "s3" {
   role       = "${aws_iam_role.ec2-role.name}"
   policy_arn = "${aws_iam_policy.s3.arn}"
+}
+
+resource "aws_iam_role_policy_attachment" "s3_2" {
+  role       = "${aws_iam_role.ec2-role.name}"
+  policy_arn = "${aws_iam_policy.s3_2.arn}"
 }
 
 resource "aws_iam_role_policy_attachment" "ec2-role-for-codedeploy" {

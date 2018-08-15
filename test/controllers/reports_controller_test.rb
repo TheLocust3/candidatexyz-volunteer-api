@@ -56,7 +56,6 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unauthorized
   end
 
-=begin
   test 'should destroy with authentication' do
     assert_difference('Report.count', -1) do
       delete report_url(@report), :headers => @auth_headers
@@ -64,7 +63,6 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
   end
-=end
 
   test "shouldn't destroy without authentication" do
     assert_difference('Report.count', 0) do
