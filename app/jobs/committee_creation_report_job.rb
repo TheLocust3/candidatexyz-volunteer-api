@@ -25,6 +25,14 @@ class CommitteeCreationReportJob < ApplicationJob
 
       campaign = get("#{Rails.application.secrets.auth_api}/campaigns/#{campaign_id}")
       users = get("#{Rails.application.secrets.auth_api}/users/users_with_committee_positions?campaign_id=#{campaign_id}")['users']
+      error = check_users(users)
+      unless error.empty?
+        report.status = error
+        report.save
+
+        return
+      end
+
       committee = Committee.where( :campaign_id => campaign_id ).first
 
       reportJson = CommitteeReportJSON.new(report_state, report, campaign, users, committee)
@@ -55,5 +63,22 @@ class CommitteeCreationReportJob < ApplicationJob
   private
   def auth_headers
     @headers
+  end
+
+  def check_users(users)
+    ['Candidate', 'Chairman', 'Treasurer'].each do |position|
+      missing = true
+      users.each do |user|
+        if user.position == position
+          missing = false
+        end
+      end
+
+      if missing
+        return "Error: Missing #{position} in campaign staff"
+      end
+    end
+
+    return ''
   end
 end

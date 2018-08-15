@@ -28,8 +28,24 @@ class FinanceReportJob < ApplicationJob
       in_kinds = InKind.where( :created_at => (report.beginning_date..report.ending_date), :campaign_id => campaign_id )
       liabilities = Liability.where( :created_at => (report.beginning_date..report.ending_date), :campaign_id => campaign_id )
       campaign = get("#{Rails.application.secrets.auth_api}/campaigns/#{campaign_id}")
+
       users = get("#{Rails.application.secrets.auth_api}/users/users_with_committee_positions?campaign_id=#{campaign_id}")['users']
+      error = check_users(users)
+      unless error.empty?
+        report.status = error
+        report.save
+
+        return
+      end
+
       committee = Committee.where( :campaign_id => campaign_id ).first
+      if committee.nil?
+        report.status = 'Error: Missing committee'
+        report.save
+
+        return
+      end
+
       last_report = Report.order('created_at DESC').where( :report_class => 'finance', :official => true ).select { |r| r.ending_date == report.beginning_date }.first
 
       reportJson = FinanceReportJSON.new(report_state, report, receipts, expenditures, in_kinds, liabilities, campaign, users, committee, last_report)
@@ -60,5 +76,22 @@ class FinanceReportJob < ApplicationJob
   private
   def auth_headers
     @headers
+  end
+
+  def check_users(users)
+    ['Candidate', 'Chairman', 'Treasurer'].each do |position|
+      missing = true
+      users.each do |user|
+        if user.position == position
+          missing = false
+        end
+      end
+
+      if missing
+        return "Error: Missing #{position} in campaign staff"
+      end
+    end
+
+    return ''
   end
 end
