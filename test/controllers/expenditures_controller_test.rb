@@ -87,4 +87,23 @@ class ExpendituresControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unauthorized
   end
+
+  test 'should export with authentication' do
+    master_csv = CSV.read('test/fixtures/files/expenditures.csv')
+
+    get '/expenditures/export', :headers => @auth_headers
+    puts @response.parsed_body
+
+    test_csv = CSV.parse(@response.parsed_body)
+
+    assert_response :success
+    assert master_csv[0] == test_csv[0]
+    assert master_csv.length == test_csv.length
+  end
+
+  test "shouldn't export without authentication" do
+    get '/expenditures/export'
+
+    assert_response :unauthorized
+  end
 end

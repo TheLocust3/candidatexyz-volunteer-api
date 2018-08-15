@@ -1,0 +1,2 @@
+id,first_name,last_name,email,phone_number,address,city,state,zipcode,help_blurb,created_at
+752ee83f-8baf-46b5-8d3d-66b7c9f1242a,Test,Test,test@gmail.com,,304 Franklin Street,Reading,MA,01867,Some help,2018-08-15 13:13:21 UTC
