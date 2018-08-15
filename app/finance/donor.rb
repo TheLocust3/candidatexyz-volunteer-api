@@ -15,6 +15,20 @@ class Donor
         self.create(receipts, in_kinds).first
     end
 
+    def self.create(receipts, in_kinds)
+        donations = Donation.create_raw(receipts, in_kinds)
+
+        donors = []
+        donations.uniq { |donation| donation.name }.each do |donor_donation|
+            donations_with_name = donations.select { |donation| donation.name == donor_donation.name }
+
+            fields = self.pull_fields(donations_with_name)
+            donors << Donor.new(donor_donation.name, fields[:email], fields[:phone_number], donor_donation.person, fields[:amount], fields[:occupation], fields[:employer], fields[:address], fields[:city], fields[:state], fields[:country], receipts, in_kinds, donations_with_name)
+        end
+
+        donors
+    end
+
     def initialize(name, email, phone_number, person, amount, occupation, employer, address, city, state, country, receipts, in_kinds, donations)
         @name = name
         @email = email
@@ -32,21 +46,18 @@ class Donor
         @donations = donations
     end
 
-    private
-    def self.create(receipts, in_kinds)
-        donations = Donation.create_raw(receipts, in_kinds)
+    def time(timeframe)
+        if timeframe == 'year'
+            year_receipts = Receipt.where( :created_at => ((DateTime.now - 1.year)..DateTime.now), :campaign_id => @campaign_id )
+            year_in_kinds = InKind.where( :created_at => ((DateTime.now - 1.year)..DateTime.now), :campaign_id => @campaign_id )
 
-        donors = []
-        donations.uniq { |donation| donation.name }.each do |donor_donation|
-            donations_with_name = donations.select { |donation| donation.name == donor_donation.name }
-
-            fields = self.pull_fields(donations_with_name)
-            donors << Donor.new(donor_donation.name, fields[:email], fields[:phone_number], donor_donation.person, fields[:amount], fields[:occupation], fields[:employer], fields[:address], fields[:city], fields[:state], fields[:country], receipts, in_kinds, donations_with_name)
+            Donor.create(year_receipts, year_in_kinds)
         end
 
-        donors
+        self
     end
 
+    private
     def self.pull_fields(donations)
         fields = Hash.new
         donations = donations.sort_by { |donation| donation.date_received }

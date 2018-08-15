@@ -5,7 +5,8 @@
         <hide />
     </rule>
 
-    <rule attribute='amount' type='expenditure' to_person='candidate' threshold='&gt; 100' time='year'>
+    <!-- TODO: Only on year long donations -->
+    <rule attribute='amount' type='expenditure' to_person='candidate' threshold='&gt; 100'>
         <stop message='Cannot donate more than $100 to a candidate' />
     </rule>
 </rules>

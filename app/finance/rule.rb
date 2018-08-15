@@ -11,9 +11,12 @@ class Rule
             return []
         end
 
-        unless run_extra_checks(object)
+        result = run_extra_checks(object)
+        unless result
             return []
         end
+
+        object = result
 
         attribute = object.send(raw_rule['attribute'])
         if attribute.nil?
@@ -35,15 +38,21 @@ class Rule
         keys = keys - ['type', 'attribute', 'threshold']
 
         for key in keys
-            result = object.method(key).parameters.length == 0 ? object.send(key) : object.send(key, raw_rule[key])
-
             # TODO: time has some extra logic to it that I haven't written
-            if key != 'time' && key != 'to_person' && result != raw_rule[key]
-                return false
+            if key != 'to_person'
+                if object.method(key).parameters.length == 0
+                    if object.send(key) != raw_rule[key]
+                        return false
+                    end
+                else
+                    result = object.send(key, raw_rule[key])
+
+                    object = result
+                end
             end
         end
 
-        return true
+        object
     end
 
     def eval_threshold(attribute, attribute_type, threshold)
