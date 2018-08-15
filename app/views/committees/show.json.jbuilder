@@ -1,6 +1,9 @@
 json.partial! 'committees/committee', committee: @committee
-json.report do
-    json.partial! 'reports/report', report: @committee.report, base_url: @base_url
+
+unless @committee.report.nil?
+    json.report do
+        json.partial! 'reports/report', report: @committee.report, base_url: @base_url
+    end
 end
 
 unless @committee.dissolution_report.nil?

@@ -1,0 +1,13 @@
+one: 
+  name: Test Committee
+  email: test@gmail.com
+  phone_number: 7813155580
+  address: 304 Franklin Street
+  city: Reaing
+  state: MA
+  country: United States
+  zipcode: 01867
+  office: Office
+  district: District
+  bank: Reading Cooperative Bank
+  campaign_id: 1234

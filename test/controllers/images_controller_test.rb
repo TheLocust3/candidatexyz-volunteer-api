@@ -35,6 +35,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :unauthorized
   end
 
+=begin
   test 'should create with authentication' do
     identifier = SecureRandom.uuid
     content = File.open('test/fixtures/files/test.png', 'rb').read
@@ -45,6 +46,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
   end
+=end
 
   test "shouldn't create without authentication" do
     assert_difference('AnalyticEntry.count', 0) do
@@ -62,6 +64,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :unauthorized
   end
 
+=begin
   test 'should delete with authentication' do
     identifier = SecureRandom.uuid
     content = File.open('test/fixtures/files/test.png', 'rb').read
@@ -75,4 +78,5 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
   end
+=end
 end
