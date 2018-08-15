@@ -82,4 +82,17 @@ class VolunteersControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unauthorized
   end
+
+  test 'should get number of pages with authentication' do
+    get '/volunteers/number-of-pages', :headers => @auth_headers
+
+    assert_response :success
+    assert @response.parsed_body == 1
+  end
+
+  test "shouldn't get number of pages without authentication" do
+    get '/volunteers/number-of-pages'
+
+    assert_response :unauthorized
+  end
 end

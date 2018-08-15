@@ -4,7 +4,7 @@ require 'rails/test_help'
 require 'httparty'
 
 require "minitest/reporters"
-Minitest::Reporters.use! Minitest::Reporters::JUnitReporter.new
+# Minitest::Reporters.use! Minitest::Reporters::JUnitReporter.new
 
 class ActiveSupport::TestCase  
   fixtures :all
