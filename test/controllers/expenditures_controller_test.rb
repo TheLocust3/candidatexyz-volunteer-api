@@ -92,7 +92,6 @@ class ExpendituresControllerTest < ActionDispatch::IntegrationTest
     master_csv = CSV.read('test/fixtures/files/expenditures.csv')
 
     get '/expenditures/export', :headers => @auth_headers
-    puts @response.parsed_body
 
     test_csv = CSV.parse(@response.parsed_body)
 
