@@ -62,10 +62,6 @@ class ReportsController < ApplicationController
         params.permit(:report_type, :official, :report_class, :campaign_id)
     end
 
-    def update_params(params)
-        params.permit(:report_type)
-    end
-
     def base_url
         "https://s3.amazonaws.com/#{bucket}/reports/#{@campaign_id}"
     end

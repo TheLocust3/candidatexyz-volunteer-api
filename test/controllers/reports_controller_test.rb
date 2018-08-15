@@ -40,5 +40,35 @@ class ReportsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unauthorized
   end
 
-  # TODO: Actually test create/update/destroy
+  test 'should create with authentication' do
+    assert_difference('Report.count', 1) do
+      post reports_url, :params => { report_type: 'M102_edit_8_prelim', official: false, report_class: 'finance', data: { beginning_date: DateTime.new(2018, 1, 1), ending_date: DateTime.new(2018, 2, 1) }, campaign_id: @campaign_id }, :headers => @auth_headers, :as => :json
+    end
+
+    assert_response :success
+  end
+
+  test "shouldn't create without authentication" do
+    assert_difference('Report.count', 0) do
+      post reports_url, :params => { report_type: 'M102_edit_8_prelim', official: false, report_class: 'finance', data: { beginning_date: DateTime.new(2018, 1, 1), ending_date: DateTime.new(2018, 2, 1) }, campaign_id: @campaign_id }, :as => :json
+    end
+
+    assert_response :unauthorized
+  end
+
+  test 'should destroy with authentication' do
+    assert_difference('Report.count', -1) do
+      delete report_url(@report), :headers => @auth_headers
+    end
+
+    assert_response :success
+  end
+
+  test "shouldn't destroy without authentication" do
+    assert_difference('Report.count', 0) do
+      delete report_url(@report)
+    end
+
+    assert_response :unauthorized
+  end
 end
